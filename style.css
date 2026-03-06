@@ -1,40 +1,63 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
 
-background:#f5f3ef;
-font-family:"Playfair Display", serif;
-margin:0;
-overflow:hidden;
+font-family: serif;
+background:#f5f3ee;
 
 }
 
 
 /* BOOT SCREEN */
 
-#boot-screen{
+#boot{
 
-height:100vh;
+position:fixed;
+inset:0;
+
 display:flex;
 flex-direction:column;
-justify-content:center;
 align-items:center;
+justify-content:center;
+
+background:#f5f3ee;
+
+z-index:10;
+
+}
+
+#boot h1{
+
+font-size:22px;
+margin-bottom:20px;
+
+color:#5f6b5a;
 
 }
 
 .loading-bar{
 
-width:400px;
+width:300px;
 height:4px;
-background:#dcd8d2;
-margin-top:20px;
+
+background:#ddd;
+
+overflow:hidden;
 
 }
 
-.loading-progress{
+.progress{
 
-width:0%;
 height:100%;
-background:#7a8466;
-animation:load 3s forwards;
+width:0%;
+
+background:#7a846e;
+
+animation:load 2.5s forwards;
 
 }
 
@@ -49,26 +72,55 @@ width:100%;
 
 /* DESKTOP */
 
-.hidden{
-display:none;
-}
-
 #desktop{
 
 height:100vh;
+width:100vw;
+
+background-color:#f5f3ee;
+
 position:relative;
+
+}
+
+
+/* LOGO BACKGROUND */
+
+#desktop::after{
+
+content:"";
+
+position:absolute;
+inset:0;
+
+background-image:url("assets/images/sage-logo.png");
+
+background-repeat:no-repeat;
+background-position:center calc(50% - 45px);
+
+background-size:52%;
+
+image-rendering:auto;
+image-rendering:-webkit-optimize-contrast;
+
+opacity:1;
+
+pointer-events:none;
 
 }
 
 
 /* FOLDERS */
 
-.icons{
+.folders{
 
 position:absolute;
-top:35%;
+
+top:75%;
 left:50%;
+
 transform:translate(-50%, -50%);
+
 display:flex;
 gap:80px;
 
@@ -77,20 +129,37 @@ gap:80px;
 .folder{
 
 text-align:center;
+
 cursor:pointer;
+
+transition:transform .15s ease;
 
 }
 
-.folder img{
+.folder:hover{
 
-width:70px;
+transform:scale(1.08);
+
+}
+
+.folder-icon{
+
+width:60px;
+height:40px;
+
+background:#8c927d;
+
+border-radius:4px;
+
+margin-bottom:10px;
 
 }
 
 .folder p{
 
-margin-top:8px;
-font-size:16px;
+font-size:14px;
+
+color:#5a5a5a;
 
 }
 
@@ -100,134 +169,72 @@ font-size:16px;
 .dock{
 
 position:absolute;
+
 bottom:30px;
+
 left:50%;
+
 transform:translateX(-50%);
-display:flex;
-gap:40px;
-padding:15px 30px;
 
 background:white;
-border-radius:20px;
 
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+padding:12px 28px;
+
+border-radius:30px;
+
+display:flex;
+gap:25px;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
 
 }
 
 .dock-item{
 
+font-size:13px;
+letter-spacing:1px;
+
+color:#5a5a5a;
+
+}
+
+.dock a{
+
+text-decoration:none;
+color:#4b4b3f;
+margin:0 20px;
 font-size:14px;
-cursor:pointer;
+letter-spacing:1px;
+
+}
+
+.dock a:hover{
+
+opacity:0.6;
 
 }
 
 
 /* CLOCK */
 
-.clock{
+#clock{
 
 position:absolute;
-right:40px;
+
+right:30px;
 bottom:30px;
-font-size:14px;
-
-}
-
-/* BACKGROUND LOGO */
-
-.background-logo{
-
-position:absolute;
-right:60px;
-bottom:80px;
-
-font-size:160px;
-
-color:#7a8466;
-
-opacity:0.15;
-
-}
-
-
-
-/* WINDOWS */
-
-.window{
-
-position:absolute;
-
-top:25%;
-left:50%;
-
-transform:translateX(-50%);
-
-width:500px;
-
-background:white;
-
-border-radius:12px;
-
-box-shadow:0 20px 40px rgba(0,0,0,0.15);
-
-overflow:hidden;
-
-}
-
-
-.window-header{
-
-display:flex;
-justify-content:space-between;
-
-padding:12px 16px;
-
-background:#efede7;
 
 font-size:14px;
 
+color:#5a5a5a;
+
 }
 
-
-.window-header button{
-
-border:none;
-background:none;
-
-font-size:20px;
-
+.folder{
 cursor:pointer;
-
+transition: transform 0.2s ease;
 }
 
-
-.window-content{
-
-padding:30px;
-
-font-size:14px;
-
-}
-
-/* DESKTOP BACKGROUND */
-
-#desktop{
-
-height:100vh;
-width:100vw;
-
-background-color:#f5f3ee;
-
-background-image:url("assets/images/sage-logo.png");
-
-background-repeat:no-repeat;
-
-background-position:center;
-
-background-size:40%;
-
-position:relative;
-
-overflow:hidden;
-
+.folder:hover{
+transform: translateY(-4px);
 }

@@ -10,134 +10,72 @@
 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
 
-<!-- BOOT -->
+<!-- BOOT SCREEN -->
 
-<div id="boot-screen">
+<div id="boot">
 
 <h1>Booting The Sage Form...</h1>
 
 <div class="loading-bar">
-<div class="loading-progress"></div>
+<div class="progress"></div>
 </div>
 
 </div>
-
 
 
 <!-- DESKTOP -->
 
-<div id="desktop" class="hidden">
-
-<div class="background-logo">
-SF
-</div>
+<div id="desktop">
 
 
-<div class="icons">
+<!-- FOLDERS -->
 
-<div class="folder" ondblclick="openWindow('work')">
-<img src="assets/icons/folder.png">
+<div class="folders">
+
+<div class="folder">
+<div class="folder-icon"></div>
 <p>Work</p>
 </div>
 
-<div class="folder" ondblclick="openWindow('archive')">
-<img src="assets/icons/folder.png">
+<div class="folder">
+<div class="folder-icon"></div>
 <p>Archive</p>
 </div>
 
-<div class="folder" ondblclick="openWindow('about')">
-<img src="assets/icons/folder.png">
+<div class="folder">
+<div class="folder-icon"></div>
 <p>About</p>
 </div>
 
-<div class="folder" ondblclick="openWindow('contact')">
-<img src="assets/icons/folder.png">
+<div class="folder">
+<div class="folder-icon"></div>
 <p>Contact</p>
 </div>
 
 </div>
 
 
-
-<!-- WINDOWS -->
-
-<div class="window hidden" id="work">
-
-<div class="window-header">
-Work
-<button onclick="closeWindow('work')">×</button>
-</div>
-
-<div class="window-content">
-Portfolio projects will live here
-</div>
-
-</div>
-
-
-<div class="window hidden" id="archive">
-
-<div class="window-header">
-Archive
-<button onclick="closeWindow('archive')">×</button>
-</div>
-
-<div class="window-content">
-Experiments / explorations
-</div>
-
-</div>
-
-
-<div class="window hidden" id="about">
-
-<div class="window-header">
-About
-<button onclick="closeWindow('about')">×</button>
-</div>
-
-<div class="window-content">
-About The Sage Form
-</div>
-
-</div>
-
-
-<div class="window hidden" id="contact">
-
-<div class="window-header">
-Contact
-<button onclick="closeWindow('contact')">×</button>
-</div>
-
-<div class="window-content">
-email / socials
-</div>
-
-</div>
-
-
-
 <!-- DOCK -->
 
 <div class="dock">
 
-<div class="dock-item">FORM</div>
-<div class="dock-item">ARCHIVE</div>
-<div class="dock-item">PROCESS</div>
-<div class="dock-item">ABOUT</div>
-<div class="dock-item">CONTACT</div>
+<a href="work.html">FORM</a>
+<a href="archive.html">ARCHIVE</a>
+<a href="process.html">PROCESS</a>
+<a href="about.html">ABOUT</a>
+<a href="contact.html">CONTACT</a>
 
 </div>
 
 
-<div class="clock" id="clock"></div>
+<!-- CLOCK -->
+
+<div id="clock"></div>
+
 
 </div>
 
@@ -145,5 +83,4 @@ email / socials
 <script src="script.js"></script>
 
 </body>
-
 </html>
