@@ -8,6 +8,7 @@ body{
 
 font-family: serif;
 background:#f5f3ee;
+overflow:hidden;
 
 }
 
@@ -80,6 +81,7 @@ width:100vw;
 background-color:#f5f3ee;
 
 position:relative;
+overflow:hidden;
 
 }
 
@@ -352,4 +354,29 @@ margin-bottom:8px;
 
 .file p{
 font-size:13px;
+}
+
+.project-window{
+top:50%;
+left:50%;
+transform:translate(-50%, -50%) scale(0.9);
+max-height:76vh;
+}
+
+.project-window.active{
+transform:translate(-50%, -50%) scale(1);
+}
+
+.project-window .window-content{
+max-height:calc(76vh - 52px);
+overflow:auto;
+}
+
+.project-window img{
+display:block;
+max-width:100%;
+height:auto;
+max-height:280px;
+object-fit:cover;
+margin-top:12px;
 }
