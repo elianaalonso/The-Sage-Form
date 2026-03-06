@@ -36,27 +36,174 @@
 
 <div class="folders">
 
-<div class="folder">
-<div class="folder-icon"></div>
+<div class="folder" onclick="openFolder('work')">
+<svg width="60" height="50" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<path d="M3 6H9L11 8H21V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V6Z" fill="#FFD34D"/>
+</svg>
 <p>Work</p>
 </div>
 
-<div class="folder">
-<div class="folder-icon"></div>
+<div class="folder" onclick="openFolder('archive')">
+<svg width="60" height="50" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<path d="M3 6H9L11 8H21V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V6Z" fill="#FFD34D"/>
+</svg>
 <p>Archive</p>
 </div>
 
-<div class="folder">
-<div class="folder-icon"></div>
+<div class="folder" onclick="openFolder('about')">
+<svg width="60" height="50" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<path d="M3 6H9L11 8H21V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V6Z" fill="#FFD34D"/>
+</svg>
 <p>About</p>
 </div>
 
-<div class="folder">
-<div class="folder-icon"></div>
+<div class="folder" onclick="openFolder('contact')">
+<svg width="60" height="50" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<path d="M3 6H9L11 8H21V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V6Z" fill="#FFD34D"/>
+</svg>
 <p>Contact</p>
 </div>
 
 </div>
+
+
+<!-- WINDOWS -->
+
+<div id="window-work" class="window">
+<div class="window-bar">
+<span>Work</span>
+<button onclick="closeWindow('window-work')">✕</button>
+</div>
+
+<div class="window-content">
+
+<div class="files">
+
+<div class="file" onclick="openProject('project-identity')">
+<div class="file-icon"></div>
+<p>Identity System</p>
+</div>
+
+<div class="file" onclick="openProject('project-poster')">
+<div class="file-icon"></div>
+<p>Poster Series</p>
+</div>
+
+<div class="file" onclick="openProject('project-web')">
+<div class="file-icon"></div>
+<p>Website Design</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<div id="window-archive" class="window">
+<div class="window-bar">
+<span>Archive</span>
+<button onclick="closeWindow('window-archive')">✕</button>
+</div>
+
+<div class="window-content">
+<p>Older explorations and experiments.</p>
+</div>
+</div>
+
+
+<div id="window-about" class="window">
+<div class="window-bar">
+<span>About</span>
+<button onclick="closeWindow('window-about')">✕</button>
+</div>
+
+<div class="window-content">
+<p>Designer focused on elevated digital presence.</p>
+</div>
+</div>
+
+
+<div id="window-contact" class="window">
+<div class="window-bar">
+<span>Contact</span>
+<button onclick="closeWindow('window-contact')">✕</button>
+</div>
+
+<div class="window-content">
+<p>hello@thesageform.com</p>
+</div>
+</div>
+
+
+<div class="window project-window" id="project-identity">
+
+<div class="window-bar">
+
+<span>Identity System</span>
+
+<button onclick="closeWindow('project-identity')">✕</button>
+
+</div>
+
+<div class="window-content">
+
+<h2>Identity System</h2>
+
+<p>Brand identity design exploring typography, structure and digital presence.</p>
+
+<img src="assets/images/sage-logo.png" style="width:100%;border-radius:8px;">
+
+</div>
+
+</div>
+
+
+<div class="window project-window" id="project-poster">
+
+<div class="window-bar">
+
+<span>Poster Series</span>
+
+<button onclick="closeWindow('project-poster')">✕</button>
+
+</div>
+
+<div class="window-content">
+
+<h2>Poster Series</h2>
+
+<p>Experimental poster compositions focused on hierarchy, rhythm, and contrast.</p>
+
+<img src="assets/images/sage-logo.png" style="width:100%;border-radius:8px;">
+
+</div>
+
+</div>
+
+
+<div class="window project-window" id="project-web">
+
+<div class="window-bar">
+
+<span>Website Design</span>
+
+<button onclick="closeWindow('project-web')">✕</button>
+
+</div>
+
+<div class="window-content">
+
+<h2>Website Design</h2>
+
+<p>Web interface design blending editorial style with clear, modern interaction.</p>
+
+<img src="assets/images/sage-logo.png" style="width:100%;border-radius:8px;">
+
+</div>
+
+</div>
+
 
 
 <!-- DOCK -->
