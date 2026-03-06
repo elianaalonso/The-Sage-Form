@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Sage Form</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- BOOT -->
+
+<div id="boot-screen">
+
+<h1>Booting The Sage Form...</h1>
+
+<div class="loading-bar">
+<div class="loading-progress"></div>
+</div>
+
+</div>
+
+
+
+<!-- DESKTOP -->
+
+<div id="desktop" class="hidden">
+
+<div class="background-logo">
+SF
+</div>
+
+
+<div class="icons">
+
+<div class="folder" ondblclick="openWindow('work')">
+<img src="assets/icons/folder.png">
+<p>Work</p>
+</div>
+
+<div class="folder" ondblclick="openWindow('archive')">
+<img src="assets/icons/folder.png">
+<p>Archive</p>
+</div>
+
+<div class="folder" ondblclick="openWindow('about')">
+<img src="assets/icons/folder.png">
+<p>About</p>
+</div>
+
+<div class="folder" ondblclick="openWindow('contact')">
+<img src="assets/icons/folder.png">
+<p>Contact</p>
+</div>
+
+</div>
+
+
+
+<!-- WINDOWS -->
+
+<div class="window hidden" id="work">
+
+<div class="window-header">
+Work
+<button onclick="closeWindow('work')">×</button>
+</div>
+
+<div class="window-content">
+Portfolio projects will live here
+</div>
+
+</div>
+
+
+<div class="window hidden" id="archive">
+
+<div class="window-header">
+Archive
+<button onclick="closeWindow('archive')">×</button>
+</div>
+
+<div class="window-content">
+Experiments / explorations
+</div>
+
+</div>
+
+
+<div class="window hidden" id="about">
+
+<div class="window-header">
+About
+<button onclick="closeWindow('about')">×</button>
+</div>
+
+<div class="window-content">
+About The Sage Form
+</div>
+
+</div>
+
+
+<div class="window hidden" id="contact">
+
+<div class="window-header">
+Contact
+<button onclick="closeWindow('contact')">×</button>
+</div>
+
+<div class="window-content">
+email / socials
+</div>
+
+</div>
+
+
+
+<!-- DOCK -->
+
+<div class="dock">
+
+<div class="dock-item">FORM</div>
+<div class="dock-item">ARCHIVE</div>
+<div class="dock-item">PROCESS</div>
+<div class="dock-item">ABOUT</div>
+<div class="dock-item">CONTACT</div>
+
+</div>
+
+
+<div class="clock" id="clock"></div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
