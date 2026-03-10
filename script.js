@@ -164,3 +164,42 @@ function openProject(id){
 openWindow(id)
 
 }
+
+
+const logo = document.querySelector(".logo-container")
+
+if(logo){
+
+logo.addEventListener("pointermove", (e) => {
+
+const rect = logo.getBoundingClientRect()
+if(!rect.width || !rect.height) return
+
+const px = ((e.clientX - rect.left) / rect.width) * 100
+const py = ((e.clientY - rect.top) / rect.height) * 100
+
+const clampedX = Math.max(0, Math.min(100, px))
+const clampedY = Math.max(0, Math.min(100, py))
+
+const rotateY = ((clampedX - 50) / 50) * 1.8
+const rotateX = ((50 - clampedY) / 50) * 1.8
+
+logo.style.setProperty("--mx", clampedX.toFixed(2) + "%")
+logo.style.setProperty("--my", clampedY.toFixed(2) + "%")
+logo.style.setProperty("--rx", rotateX.toFixed(2) + "deg")
+logo.style.setProperty("--ry", rotateY.toFixed(2) + "deg")
+logo.classList.add("is-hovered")
+
+})
+
+logo.addEventListener("pointerleave", () => {
+
+logo.style.setProperty("--mx", "50%")
+logo.style.setProperty("--my", "50%")
+logo.style.setProperty("--rx", "0deg")
+logo.style.setProperty("--ry", "0deg")
+logo.classList.remove("is-hovered")
+
+})
+
+}

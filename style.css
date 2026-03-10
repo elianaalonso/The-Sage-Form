@@ -73,16 +73,17 @@ width:100%;
 
 /* DESKTOP */
 
-#desktop{
-
+.desktop{
 height:100vh;
 width:100vw;
-
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:80px;
 background-color:#f5f3ee;
-
 position:relative;
 overflow:hidden;
-
 }
 
 
@@ -116,17 +117,29 @@ pointer-events:none;
 
 /* TYPOGRAPHIC LOGO */
 
-.brand-mark{
-position:absolute;
-left:50%;
-top:41%;
-transform:translate(-50%, -50%);
+.logo-container{
+position:relative;
+display:inline-block;
 text-align:center;
-pointer-events:none;
-z-index:1;
-width:min(96vw, 1400px);
-opacity:0;
-animation:brandReveal 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) 2.55s forwards;
+pointer-events:auto;
+cursor:default;
+user-select:none;
+--mx:50%;
+--my:50%;
+--rx:0deg;
+--ry:0deg;
+transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+transform-style:preserve-3d;
+transition:transform 180ms ease, filter 220ms ease;
+}
+
+.logo-container *{
+cursor:default;
+user-select:none;
+}
+
+.logo-container.is-hovered{
+filter:drop-shadow(0 10px 16px rgba(43,46,44,0.12));
 }
 
 .brand-top{
@@ -162,40 +175,75 @@ margin:10px 0 0 0;
 white-space:nowrap;
 }
 
+.logo-main{
+font-family:"Montserrat", sans-serif;
+font-weight:100;
+font-size:clamp(24px, 3vw, 40px);
+color:#2b2e2c;
+letter-spacing:0.132em;
+line-height:1;
+margin:0;
+}
+
+.logo-main span{
+display:block;
+font-family:"Cormorant Garamond", serif;
+font-weight:600;
+font-size:clamp(72px, 7.5vw, 120px);
+letter-spacing:2px;
+color:#6f7660;
+line-height:0.92;
+text-shadow:3px -2px 0 rgba(43,46,44,0.22);
+position:relative;
+transition:text-shadow 180ms ease;
+will-change:text-shadow;
+}
+
+.tagline{
+font-family:"Montserrat", sans-serif;
+font-weight:100;
+font-size:clamp(13px, 1.45vw, 24px);
+color:#2b2e2c;
+letter-spacing:0.287em;
+line-height:1;
+margin:10px 0 0 0;
+white-space:nowrap;
+transition:letter-spacing 180ms ease, color 180ms ease;
+}
+
+.logo-container.is-hovered .logo-main span{
+text-shadow:4px -3px 0 rgba(43,46,44,0.2);
+}
+
+.logo-container.is-hovered .tagline{
+letter-spacing:0.293em;
+color:#262b28;
+}
+
 
 /* FOLDERS */
 
 .folders{
-
-position:absolute;
-
-top:71%;
-left:50%;
-
-transform:translate(-50%, -50%);
-
 display:flex;
-gap:80px;
+gap:70px;
 
 }
 
 .folder{
-
-text-align:center;
-
+display:flex;
+flex-direction:column;
+align-items:center;
 cursor:pointer;
 
 opacity:0;
 transform:translateY(18px) scale(0.96);
 animation:folderIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-transition:transform 0.25s ease, filter 0.25s ease;
+transition:transform 0.2s ease;
 
 }
 
 .folder:hover{
-
-transform:translateY(-6px) rotate(-1deg) scale(1.03);
-filter:brightness(1.05);
+transform:translateY(-6px);
 
 }
 
@@ -247,8 +295,8 @@ transition:transform 0.25s ease, filter 0.25s ease;
 }
 
 .folder:hover svg{
-transform:translateY(-2px) scale(1.04);
-filter:drop-shadow(0 10px 14px rgba(111,118,96,0.2));
+transform:none;
+filter:none;
 }
 
 .folder svg path{
@@ -260,9 +308,9 @@ fill:#8c927d !important;
 
 .dock{
 
-position:absolute;
+position:fixed;
 
-bottom:30px;
+bottom:45px;
 
 left:50%;
 
@@ -382,6 +430,8 @@ to{ opacity:1; }
 @media (prefers-reduced-motion: reduce){
 .brand-mark,
 .brand-main,
+.logo-main span,
+.logo-container,
 .folder,
 .dock,
 #clock{
