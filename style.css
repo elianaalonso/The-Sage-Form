@@ -90,6 +90,8 @@ overflow:hidden;
 
 #desktop::after{
 
+display:none;
+
 content:"";
 
 position:absolute;
@@ -112,13 +114,62 @@ pointer-events:none;
 }
 
 
+/* TYPOGRAPHIC LOGO */
+
+.brand-mark{
+position:absolute;
+left:50%;
+top:41%;
+transform:translate(-50%, -50%);
+text-align:center;
+pointer-events:none;
+z-index:1;
+width:min(96vw, 1400px);
+opacity:0;
+animation:brandReveal 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) 2.55s forwards;
+}
+
+.brand-top{
+font-family:"Montserrat", sans-serif;
+font-weight:100;
+font-size:clamp(24px, 3vw, 40px);
+color:#2b2e2c;
+letter-spacing:0.132em;
+line-height:1;
+margin:0 0 10px 0;
+}
+
+.brand-main{
+font-family:"Cormorant Garamond", serif;
+font-weight:600;
+font-size:clamp(60px, 7.5vw, 120px);
+color:#6f7660;
+line-height:0.92;
+margin:0;
+white-space:nowrap;
+text-shadow:3px -2px 0 rgba(43,46,44,0.22);
+animation:brandDrift 6s ease-in-out 3.4s infinite;
+}
+
+.brand-sub{
+font-family:"Montserrat", sans-serif;
+font-weight:100;
+font-size:clamp(13px, 1.45vw, 24px);
+color:#2b2e2c;
+letter-spacing:0.287em;
+line-height:1;
+margin:10px 0 0 0;
+white-space:nowrap;
+}
+
+
 /* FOLDERS */
 
 .folders{
 
 position:absolute;
 
-top:70%;
+top:71%;
 left:50%;
 
 transform:translate(-50%, -50%);
@@ -134,15 +185,24 @@ text-align:center;
 
 cursor:pointer;
 
-transition:transform .15s ease;
+opacity:0;
+transform:translateY(18px) scale(0.96);
+animation:folderIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+transition:transform 0.25s ease, filter 0.25s ease;
 
 }
 
 .folder:hover{
 
-transform:scale(1.08);
+transform:translateY(-6px) rotate(-1deg) scale(1.03);
+filter:brightness(1.05);
 
 }
+
+.folder:nth-child(1){ animation-delay:2.7s; }
+.folder:nth-child(2){ animation-delay:2.82s; }
+.folder:nth-child(3){ animation-delay:2.94s; }
+.folder:nth-child(4){ animation-delay:3.06s; }
 
 .folder-icon{
 
@@ -183,6 +243,12 @@ display:block;
 margin:0 auto 10px;
 width:88px;
 height:76px;
+transition:transform 0.25s ease, filter 0.25s ease;
+}
+
+.folder:hover svg{
+transform:translateY(-2px) scale(1.04);
+filter:drop-shadow(0 10px 14px rgba(111,118,96,0.2));
 }
 
 .folder svg path{
@@ -212,6 +278,8 @@ display:flex;
 gap:25px;
 
 box-shadow:0 8px 20px rgba(0,0,0,0.08);
+opacity:0;
+animation:dockIn 0.7s ease 3.15s forwards;
 
 }
 
@@ -253,16 +321,80 @@ bottom:30px;
 font-size:14px;
 
 color:#5a5a5a;
+opacity:0;
+animation:clockIn 0.6s ease 3.25s forwards;
 
 }
 
 .folder{
 cursor:pointer;
-transition: transform 0.2s ease;
+transition: transform 0.25s ease, filter 0.25s ease;
 }
 
 .folder:hover{
-transform: translateY(-4px);
+transform: translateY(-6px) rotate(-1deg) scale(1.03);
+}
+
+
+@keyframes brandReveal{
+from{
+opacity:0;
+transform:translate(-50%, -46%);
+}
+to{
+opacity:1;
+transform:translate(-50%, -50%);
+}
+}
+
+@keyframes brandDrift{
+0%, 100%{ transform:translateY(0); }
+50%{ transform:translateY(-3px); }
+}
+
+@keyframes folderIn{
+from{
+opacity:0;
+transform:translateY(18px) scale(0.96);
+}
+to{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+}
+
+@keyframes dockIn{
+from{
+opacity:0;
+transform:translateX(-50%) translateY(20px);
+}
+to{
+opacity:1;
+transform:translateX(-50%) translateY(0);
+}
+}
+
+@keyframes clockIn{
+from{ opacity:0; }
+to{ opacity:1; }
+}
+
+@media (prefers-reduced-motion: reduce){
+.brand-mark,
+.brand-main,
+.folder,
+.dock,
+#clock{
+animation:none !important;
+opacity:1;
+}
+
+.folder,
+.folder svg,
+.dock a,
+.window{
+transition:none !important;
+}
 }
 
 
