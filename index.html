@@ -1,244 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>The Sage Form</title>
-
-<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/monograma-favicon.png?v=2">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/monograma-favicon.png?v=2">
-<link rel="apple-touch-icon" href="assets/icons/monograma-favicon.png?v=2">
-
-<link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Montserrat:wght@100&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sage Form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<!-- BOOT SCREEN -->
-
-<div id="boot">
-
-<h1>Booting The Sage Form...</h1>
-
-<div class="loading-bar">
-<div class="progress"></div>
-</div>
-
-</div>
-
-
-<!-- DESKTOP -->
-
-<main id="desktop" class="desktop">
-
-<div class="logo-container">
-<h1 class="logo-main">
-THE
-<span>SAGE FORM.</span>
-</h1>
-<p class="tagline">Elevating digital presence</p>
-</div>
-
-
-<!-- FOLDERS -->
-
-<div class="folders">
-
-<div class="folder" onclick="openFolder('work')">
-<img class="folder-icon-img" src="assets/icons/carpetas.png" alt="" aria-hidden="true">
-<p>Work</p>
-</div>
-
-<div class="folder" onclick="openFolder('archive')">
-<img class="folder-icon-img" src="assets/icons/carpetas.png" alt="" aria-hidden="true">
-<p>Archive</p>
-</div>
-
-<div class="folder" onclick="openFolder('about')">
-<img class="folder-icon-img" src="assets/icons/carpetas.png" alt="" aria-hidden="true">
-<p>About</p>
-</div>
-
-<div class="folder" onclick="openFolder('contact')">
-<img class="folder-icon-img" src="assets/icons/carpetas.png" alt="" aria-hidden="true">
-<p>Contact</p>
-</div>
-
-</div>
-
-</main>
-
-
-<!-- WINDOWS -->
-
-<div id="window-work" class="window">
-<div class="window-bar">
-<span>Work</span>
-<button onclick="closeWindow('window-work')">✕</button>
-</div>
-
-<div class="window-content">
-
-<div class="files">
-
-<div class="file" onclick="openProject('project-identity')">
-<div class="file-icon"></div>
-<p>Identity System</p>
-</div>
-
-<div class="file" onclick="openProject('project-poster')">
-<div class="file-icon"></div>
-<p>Poster Series</p>
-</div>
-
-<div class="file" onclick="openProject('project-web')">
-<div class="file-icon"></div>
-<p>Website Design</p>
-</div>
-
-</div>
-
-</div>
-</div>
-
-
-<div id="window-archive" class="window">
-<div class="window-bar">
-<span>Archive</span>
-<button onclick="closeWindow('window-archive')">✕</button>
-</div>
-
-<div class="window-content">
-<p>Older explorations and experiments.</p>
-</div>
-</div>
-
-
-<div id="window-about" class="window">
-<div class="window-bar">
-<span>About</span>
-<button onclick="closeWindow('window-about')">✕</button>
-</div>
-
-<div class="window-content">
-<p>Designer focused on elevated digital presence.</p>
-</div>
-</div>
-
-
-<div id="window-contact" class="window">
-<div class="window-bar">
-<span>Contact</span>
-<button onclick="closeWindow('window-contact')">✕</button>
-</div>
-
-<div class="window-content">
-<p>hello@thesageform.com</p>
-</div>
-</div>
-
-
-<div class="window project-window" id="project-identity">
-
-<div class="window-bar">
-
-<span>Identity System</span>
-
-<button onclick="closeWindow('project-identity')">✕</button>
-
-</div>
-
-<div class="window-content">
-
-<h2>Identity System</h2>
-
-<p>Brand identity design exploring typography, structure and digital presence.</p>
-
-<img src="assets/images/sage-logo.png" style="width:100%;border-radius:8px;">
-
-</div>
-
-</div>
-
-
-<div class="window project-window" id="project-poster">
-
-<div class="window-bar">
-
-<span>Poster Series</span>
-
-<button onclick="closeWindow('project-poster')">✕</button>
-
-</div>
-
-<div class="window-content">
-
-<h2>Poster Series</h2>
-
-<p>Experimental poster compositions focused on hierarchy, rhythm, and contrast.</p>
-
-<img src="assets/images/sage-logo.png" style="width:100%;border-radius:8px;">
-
-</div>
-
-</div>
-
-
-<div class="window project-window" id="project-web">
-
-<div class="window-bar">
-
-<span>Website Design</span>
-
-<button onclick="closeWindow('project-web')">✕</button>
-
-</div>
-
-<div class="window-content">
-
-<h2>Website Design</h2>
-
-<p>Web interface design blending editorial style with clear, modern interaction.</p>
-
-<img src="assets/images/sage-logo.png" style="width:100%;border-radius:8px;">
-
-</div>
-
-</div>
-
-
-
-<!-- DOCK -->
-
-<div class="dock">
-
-<a href="work.html">FORM</a>
-<a href="archive.html">ARCHIVE</a>
-<a href="process.html">PROCESS</a>
-<a href="about.html">ABOUT</a>
-<a href="contact.html">CONTACT</a>
-
-</div>
-
-
-<!-- CLOCK -->
-
-<div id="clock"></div>
-
-
-<div class="spotlight"></div>
-
-<div class="cursor"></div>
-
-
-<script src="script.js"></script>
+  <section class="hero">
+    <div class="brand-lockup">
+      <p class="brand-top">The</p>
+      <h1>SAGE FORM.</h1>
+      <p class="brand-sub">Elevating Digital Presence</p>
+    </div>
+    <p class="kicker">Web Design Studio</p>
+    <p>
+      Diseñamos y desarrollamos experiencias web con intención.
+      Creamos sitios claros, funcionales y pensados para comunicar y convertir.
+    </p>
+  </section>
+
+  <section class="work">
+    <div class="card">
+      <h3>Plataforma de cursos online</h3>
+      <p>
+        Diseño y desarrollo de una experiencia e-commerce enfocada en claridad, confianza y conversión.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Landing marca bienestar</h3>
+      <p>
+        Interfaz diseñada para transmitir calma, orden y conexión con el usuario.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Portfolio artista visual</h3>
+      <p>
+        Exploración de un espacio digital como extensión de la obra artística.
+      </p>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="panel">
+      <h2>Sobre The Sage Form</h2>
+      <p>
+        The Sage Form es un estudio enfocado en el diseño y desarrollo de experiencias digitales.
+        Trabajamos en la intersección entre estética y funcionalidad, creando sitios pensados para comunicar con claridad y generar resultados.
+      </p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="panel">
+      <h2>Trabajemos juntos</h2>
+      <p>Si tu marca necesita una presencia digital elegante y estratégica, conversemos.</p>
+      <a href="mailto:tuemail@gmail.com">tuemail@gmail.com</a>
+    </div>
+  </section>
 
 </body>
 </html>
