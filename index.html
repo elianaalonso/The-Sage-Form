@@ -39,11 +39,13 @@
 <main id="desktop" class="desktop">
 
 <div class="logo-container">
-<h1 class="logo-main">
-THE
-<span>SAGE FORM.</span>
-</h1>
-<p class="tagline">Elevating digital presence</p>
+<p class="brand-top">THE</p>
+
+<h1 class="brand-main">SAGE FORM.</h1>
+
+<div class="brand-divider"></div>
+
+<p class="brand-sub">Elevating digital presence</p>
 </div>
 
 
@@ -51,24 +53,28 @@ THE
 
 <div class="folders">
 
-<div class="folder" onclick="openFolder('work')">
+<div class="folder" onclick="openFolder('work', this)">
 <img class="folder-icon-img" src="assets/icons/carpetas.png" alt="" aria-hidden="true">
 <p>Work</p>
+<small>Selected projects</small>
 </div>
 
-<div class="folder" onclick="openFolder('archive')">
+<div class="folder" onclick="openFolder('archive', this)">
 <img class="folder-icon-img" src="assets/icons/carpetas.png" alt="" aria-hidden="true">
 <p>Archive</p>
+<small>Past explorations</small>
 </div>
 
-<div class="folder" onclick="openFolder('about')">
+<div class="folder" onclick="openFolder('about', this)">
 <img class="folder-icon-img" src="assets/icons/carpetas.png" alt="" aria-hidden="true">
 <p>About</p>
+<small>Studio philosophy</small>
 </div>
 
-<div class="folder" onclick="openFolder('contact')">
+<div class="folder" onclick="openFolder('contact', this)">
 <img class="folder-icon-img" src="assets/icons/carpetas.png" alt="" aria-hidden="true">
 <p>Contact</p>
+<small>Start a project</small>
 </div>
 
 </div>
