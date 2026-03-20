@@ -6,7 +6,7 @@
   <title>The Sage Form</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500&family=Syne:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -88,28 +88,49 @@
         <div class="stage-head">
           <p class="stage-tag">WORK / SELECTED</p>
           <h2>Proyectos creados para convertir vision en sistema digital.</h2>
+          <div class="work-reel" aria-hidden="true">
+            <div class="work-reel-frame mood-a">
+              <img class="work-reel-image" src="assets/images/sage-logo.png" alt="" loading="lazy" />
+            </div>
+            <p class="work-reel-label">Hover on a project</p>
+          </div>
         </div>
         <div class="stage-body work-lines">
           <article class="work-line">
             <span>01</span>
-            <div>
-              <h3>Plataforma de cursos online</h3>
-              <p>E-commerce educativo con foco en claridad de compra y ritmo de lectura.</p>
-            </div>
+            <a class="work-line-link" href="#contact" data-reel="mood-a" data-preview="Plataforma de cursos online" aria-label="Ver proyecto de plataforma de cursos online">
+              <div class="work-media mood-a">
+                <img src="assets/images/sage-logo.png" alt="Preview plataforma de cursos online" loading="lazy" />
+              </div>
+              <div>
+                <h3>Plataforma de cursos online</h3>
+                <p>E-commerce educativo con foco en claridad de compra y ritmo de lectura.</p>
+              </div>
+            </a>
           </article>
           <article class="work-line">
             <span>02</span>
-            <div>
-              <h3>Landing para marca de bienestar</h3>
-              <p>Direccion visual serena con narrativa de marca y estructura de conversion.</p>
-            </div>
+            <a class="work-line-link" href="#contact" data-reel="mood-b" data-preview="Landing para marca de bienestar" aria-label="Ver proyecto de landing para marca de bienestar">
+              <div class="work-media mood-b">
+                <img src="assets/images/sage-logo.png" alt="Preview landing marca de bienestar" loading="lazy" />
+              </div>
+              <div>
+                <h3>Landing para marca de bienestar</h3>
+                <p>Direccion visual serena con narrativa de marca y estructura de conversion.</p>
+              </div>
+            </a>
           </article>
           <article class="work-line">
             <span>03</span>
-            <div>
-              <h3>Portfolio para artista visual</h3>
-              <p>Experiencia editorial inmersiva para exhibir obra, proceso y contexto.</p>
-            </div>
+            <a class="work-line-link" href="#contact" data-reel="mood-c" data-preview="Portfolio para artista visual" aria-label="Ver proyecto de portfolio para artista visual">
+              <div class="work-media mood-c">
+                <img src="assets/images/sage-logo.png" alt="Preview portfolio para artista visual" loading="lazy" />
+              </div>
+              <div>
+                <h3>Portfolio para artista visual</h3>
+                <p>Experiencia editorial inmersiva para exhibir obra, proceso y contexto.</p>
+              </div>
+            </a>
           </article>
         </div>
       </div>
@@ -162,8 +183,35 @@
     </div>
   </section>
 
+  <footer class="site-footer" aria-label="Footer">
+    <div class="section-shell footer-shell">
+      <div class="footer-brand">
+        <p class="footer-tag">THE SAGE FORM</p>
+        <h3>Built for clarity, crafted for presence.</h3>
+      </div>
+
+      <div class="footer-links" aria-label="Enlaces del footer">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-meta">
+        <a href="mailto:tuemail@gmail.com">tuemail@gmail.com</a>
+        <p>Montevideo, Uruguay</p>
+        <p>© <span id="footer-year">2026</span> The Sage Form</p>
+      </div>
+    </div>
+  </footer>
+
   <div class="cursor-halo" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
+
+  <a class="signature-cta" href="mailto:tuemail@gmail.com" aria-label="Iniciar proyecto con The Sage Form">
+    <span>Start a project</span>
+    <small>THE SAGE FORM</small>
+  </a>
 
   <script src="script.js"></script>
 </body>
