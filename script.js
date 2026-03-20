@@ -1,6 +1,7 @@
 const liveTime = document.querySelector('.live-time');
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorHalo = document.querySelector('.cursor-halo');
+const progressFill = document.querySelector('.page-progress-fill');
 
 if (liveTime) {
   const formatter = new Intl.DateTimeFormat('es-UY', {
@@ -46,7 +47,40 @@ if (finePointer && cursorDot && cursorHalo) {
   });
 }
 
+if (progressFill) {
+  const updateProgress = () => {
+    const scrollTop = window.scrollY || window.pageYOffset;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollTop / maxScroll)) : 0;
+    progressFill.style.transform = `scaleX(${progress})`;
+  };
+
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  window.addEventListener('load', updateProgress);
+}
+
 const hero = document.querySelector('.hero');
+const snapSections = document.querySelectorAll('.snap-section');
+
+if (snapSections.length) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    },
+    {
+      threshold: 0.2,
+      rootMargin: '0px 0px -8% 0px'
+    }
+  );
+
+  snapSections.forEach((section) => revealObserver.observe(section));
+}
 
 if (hero) {
   const scrollCue = hero.querySelector('.scroll-cue');
