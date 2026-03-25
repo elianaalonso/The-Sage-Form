@@ -26,13 +26,45 @@ if (liveTime) {
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 if (finePointer && cursorDot && cursorHalo) {
-  window.addEventListener('mousemove', (event) => {
-    const x = event.clientX;
-    const y = event.clientY;
-    cursorDot.style.transform = `translate(${x}px, ${y}px)`;
-    cursorHalo.style.transform = `translate(${x}px, ${y}px)`;
+  const cursorState = {
+    targetX: window.innerWidth * 0.5,
+    targetY: window.innerHeight * 0.5,
+    haloX: window.innerWidth * 0.5,
+    haloY: window.innerHeight * 0.5,
+    rafId: null
+  };
+
+  const renderCursor = () => {
+    cursorDot.style.transform = `translate3d(${cursorState.targetX}px, ${cursorState.targetY}px, 0)`;
+
+    cursorState.haloX += (cursorState.targetX - cursorState.haloX) * 0.22;
+    cursorState.haloY += (cursorState.targetY - cursorState.haloY) * 0.22;
+    cursorHalo.style.transform = `translate3d(${cursorState.haloX}px, ${cursorState.haloY}px, 0)`;
+
+    const stillMoving =
+      Math.abs(cursorState.targetX - cursorState.haloX) > 0.2 ||
+      Math.abs(cursorState.targetY - cursorState.haloY) > 0.2;
+
+    if (stillMoving) {
+      cursorState.rafId = window.requestAnimationFrame(renderCursor);
+    } else {
+      cursorState.rafId = null;
+    }
+  };
+
+  const queueCursorRender = () => {
+    if (cursorState.rafId !== null) {
+      return;
+    }
+    cursorState.rafId = window.requestAnimationFrame(renderCursor);
+  };
+
+  window.addEventListener('pointermove', (event) => {
+    cursorState.targetX = event.clientX;
+    cursorState.targetY = event.clientY;
     document.body.classList.add('cursor-ready');
-  });
+    queueCursorRender();
+  }, { passive: true });
 
   window.addEventListener('mouseout', (event) => {
     if (!event.relatedTarget) {
@@ -67,12 +99,54 @@ if (progressFill) {
 }
 
 const hero = document.querySelector('.hero');
+const aboutSection = document.querySelector('.about');
+const aboutStorySteps = document.querySelectorAll('.about-story-step');
+const aboutProgressDots = document.querySelectorAll('.about-progress-dot');
+const aboutFocusValue = document.querySelector('.about-focus-value');
 const snapSections = document.querySelectorAll('.snap-section');
 const navLinks = document.querySelectorAll('.top-nav a');
 const workLinks = document.querySelectorAll('.work-line-link');
 const workReelFrame = document.querySelector('.work-reel-frame');
 const workReelLabel = document.querySelector('.work-reel-label');
 const signatureCta = document.querySelector('.signature-cta');
+
+if (aboutSection && aboutStorySteps.length) {
+  const setActiveStoryStep = (activeStep) => {
+    aboutStorySteps.forEach((step, index) => {
+      const isActive = step === activeStep;
+      step.classList.toggle('is-active', isActive);
+
+      if (aboutProgressDots[index]) {
+        aboutProgressDots[index].classList.toggle('is-active', isActive);
+      }
+    });
+
+    if (aboutFocusValue && activeStep?.dataset.focus) {
+      aboutFocusValue.textContent = activeStep.dataset.focus;
+    }
+  };
+
+  const initialStep = document.querySelector('.about-story-step.is-active') || aboutStorySteps[0];
+  if (initialStep) {
+    setActiveStoryStep(initialStep);
+  }
+
+  const storyObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveStoryStep(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.62,
+      rootMargin: '-18% 0px -28% 0px'
+    }
+  );
+
+  aboutStorySteps.forEach((step) => storyObserver.observe(step));
+}
 
 if (snapSections.length) {
   const updateSectionParallax = () => {
@@ -208,34 +282,80 @@ if (snapSections.length) {
 if (hero) {
   const scrollCue = hero.querySelector('.scroll-cue');
 
-  const updateGlow = (event) => {
-    const rect = hero.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width) * 100;
-    const y = ((event.clientY - rect.top) / rect.height) * 100;
+  const glowState = {
+    mouseX: 0,
+    mouseY: 0,
+    rect: null,
+    cueX: 0,
+    cueY: 0,
+    rafId: null,
+    active: false
+  };
 
+  const updateGlowGeometry = () => {
+    glowState.rect = hero.getBoundingClientRect();
+    if (scrollCue) {
+      const cueRect = scrollCue.getBoundingClientRect();
+      glowState.cueX = cueRect.left + cueRect.width / 2;
+      glowState.cueY = cueRect.top + cueRect.height / 2;
+    }
+  };
+
+  const renderGlow = () => {
+    const rect = glowState.rect;
+    if (!rect || rect.width === 0 || rect.height === 0) {
+      glowState.rafId = null;
+      return;
+    }
+
+    const x = ((glowState.mouseX - rect.left) / rect.width) * 100;
+    const y = ((glowState.mouseY - rect.top) / rect.height) * 100;
     const dx = (x - 50) / 50;
     const dy = (y - 50) / 50;
-    const px = dx * 14;
-    const py = dy * 10;
 
     hero.style.setProperty('--mx', `${x}%`);
     hero.style.setProperty('--my', `${y}%`);
-    hero.style.setProperty('--px', `${px}px`);
-    hero.style.setProperty('--py', `${py}px`);
+    hero.style.setProperty('--px', `${(dx * 14).toFixed(2)}px`);
+    hero.style.setProperty('--py', `${(dy * 10).toFixed(2)}px`);
     hero.style.setProperty('--pyn', `${dy.toFixed(3)}`);
     hero.style.setProperty('--fb-scale', '1.02');
 
     if (scrollCue) {
-      const cueRect = scrollCue.getBoundingClientRect();
-      const cueX = cueRect.left + cueRect.width / 2;
-      const cueY = cueRect.top + cueRect.height / 2;
-      const cueDistance = Math.hypot(event.clientX - cueX, event.clientY - cueY);
+      const cueDistance = Math.hypot(glowState.mouseX - glowState.cueX, glowState.mouseY - glowState.cueY);
       hero.classList.toggle('is-near-scroll', cueDistance < 180);
     }
+
+    glowState.rafId = null;
   };
 
-  hero.addEventListener('mousemove', updateGlow);
+  const queueGlowRender = () => {
+    if (glowState.rafId !== null) {
+      return;
+    }
+    glowState.rafId = window.requestAnimationFrame(renderGlow);
+  };
+
+  updateGlowGeometry();
+  window.addEventListener('resize', updateGlowGeometry);
+  window.addEventListener('scroll', () => {
+    if (glowState.active) {
+      updateGlowGeometry();
+    }
+  }, { passive: true });
+
+  hero.addEventListener('mouseenter', () => {
+    glowState.active = true;
+    updateGlowGeometry();
+  });
+
+  hero.addEventListener('pointermove', (event) => {
+    glowState.mouseX = event.clientX;
+    glowState.mouseY = event.clientY;
+    queueGlowRender();
+  }, { passive: true });
+
   hero.addEventListener('mouseleave', () => {
+    glowState.active = false;
     hero.style.setProperty('--mx', '50%');
     hero.style.setProperty('--my', '40%');
     hero.style.setProperty('--px', '0px');
