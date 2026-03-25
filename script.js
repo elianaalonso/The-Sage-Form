@@ -167,10 +167,21 @@ if (snapSections.length) {
 }
 
 if (workLinks.length && workReelFrame && workReelLabel) {
+  const workReelImage = workReelFrame.querySelector('.work-reel-image');
+
+  const reelImages = {
+    'mood-a': 'https://picsum.photos/seed/sageform-1/700/400',
+    'mood-b': 'https://picsum.photos/seed/sageform-2/700/400',
+    'mood-c': 'https://picsum.photos/seed/sageform-3/700/400'
+  };
+
   const setReelState = (tone, label) => {
     workReelFrame.classList.remove('mood-a', 'mood-b', 'mood-c');
     workReelFrame.classList.add(tone || 'mood-a');
     workReelLabel.textContent = label || 'Hover on a project';
+    if (workReelImage && reelImages[tone]) {
+      workReelImage.src = reelImages[tone];
+    }
   };
 
   workLinks.forEach((link) => {
@@ -188,6 +199,89 @@ if (workLinks.length && workReelFrame && workReelLabel) {
 
     link.addEventListener('blur', () => {
       setReelState('mood-a', 'Hover on a project');
+    });
+  });
+}
+
+// ─── WORK DRAWER ───────────────────────────────────────────────
+
+const workDrawer = document.querySelector('.work-drawer');
+const workDrawerOverlay = document.querySelector('.work-drawer-overlay');
+const workDrawerClose = document.querySelector('.work-drawer-close');
+
+const projectDetails = {
+  'mood-a': {
+    tag: '01 / E-COMMERCE EDUCATIVO',
+    title: 'Plataforma de cursos online',
+    year: '2025',
+    type: 'Web design + Desarrollo',
+    detail: 'Un entorno de aprendizaje donde cada decision de diseno acelera la decision de compra. Jerarquia clara, ritmo de lectura calibrado y flujo de checkout sin fricciones para que el contenido venda por si mismo.',
+    steps: ['Arquitectura de contenido y UX', 'Identidad visual e interfaz', 'Desarrollo frontend + integracion']
+  },
+  'mood-b': {
+    tag: '02 / LANDING PAGE',
+    title: 'Landing para marca de bienestar',
+    year: '2025',
+    type: 'Web design + Estrategia',
+    detail: 'Narrativa visual que traduce los valores de la marca en una experiencia serena y de alta conversion. El diseno guia la atencion sin que el usuario lo perciba: todo fluye hacia la accion.',
+    steps: ['Estrategia de marca y tono visual', 'Direccion visual y composicion', 'Desarrollo + optimizacion de conversion']
+  },
+  'mood-c': {
+    tag: '03 / PORTFOLIO EDITORIAL',
+    title: 'Portfolio para artista visual',
+    year: '2024',
+    type: 'Web design + Curation',
+    detail: 'Una experiencia inmersiva donde la obra habla primero. Navegacion editorial, secuencias de imagen controladas y textura visual que acompana sin competir con el arte.',
+    steps: ['Curation y arquitectura editorial', 'Composicion visual y tipografia', 'Desarrollo inmersivo + performance']
+  }
+};
+
+const openDrawer = (reel) => {
+  const data = projectDetails[reel];
+  if (!data || !workDrawer) return;
+
+  workDrawer.querySelector('.work-drawer-tag').textContent = data.tag;
+  workDrawer.querySelector('.work-drawer-title').textContent = data.title;
+  workDrawer.querySelector('.work-drawer-year').textContent = data.year;
+  workDrawer.querySelector('.work-drawer-type').textContent = data.type;
+  workDrawer.querySelector('.work-drawer-detail').textContent = data.detail;
+
+  const stepsList = workDrawer.querySelector('.work-drawer-steps');
+  stepsList.innerHTML = data.steps
+    .map((s, i) => `<li><span>${String(i + 1).padStart(2, '0')}</span>${s}</li>`)
+    .join('');
+
+  workDrawerOverlay.classList.add('is-visible');
+  workDrawer.classList.add('is-open');
+  document.body.classList.add('drawer-open');
+
+  if (workDrawerClose) {
+    window.setTimeout(() => workDrawerClose.focus(), 80);
+  }
+};
+
+const closeDrawer = () => {
+  workDrawerOverlay.classList.remove('is-visible');
+  workDrawer.classList.remove('is-open');
+  document.body.classList.remove('drawer-open');
+};
+
+if (workDrawer && workDrawerOverlay) {
+  if (workDrawerClose) {
+    workDrawerClose.addEventListener('click', closeDrawer);
+  }
+
+  workDrawerOverlay.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && workDrawer.classList.contains('is-open')) {
+      closeDrawer();
+    }
+  });
+
+  document.querySelectorAll('.work-info-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      openDrawer(btn.dataset.reel);
     });
   });
 }

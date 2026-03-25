@@ -1072,9 +1072,45 @@ body > * {
   grid-template-columns: minmax(156px, 24%) 1fr;
   align-items: center;
   gap: 18px;
+  width: 100%;
+}
+
+.work-image-link {
+  display: block;
   text-decoration: none;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.work-info-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: none;
+  border: none;
+  text-align: left;
   color: inherit;
   width: 100%;
+  padding: 0;
+  font-family: inherit;
+}
+
+.work-info-btn::after {
+  content: "→";
+  font-size: 18px;
+  color: rgba(80, 86, 70, 0.36);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.28s ease, transform 0.28s ease, color 0.28s ease;
+  flex-shrink: 0;
+}
+
+.work-info-btn:hover::after,
+.work-info-btn:focus-visible::after {
+  opacity: 1;
+  transform: translateX(0);
+  color: rgba(80, 86, 70, 0.72);
 }
 
 .work-media {
@@ -1116,20 +1152,21 @@ body > * {
   background: linear-gradient(145deg, rgba(241, 236, 226, 0.92), rgba(213, 207, 189, 0.74));
 }
 
-.work-line-link:hover .work-media,
-.work-line-link:focus-visible .work-media {
+.work-image-link:hover .work-media,
+.work-image-link:focus-visible .work-media {
   transform: translateY(-4px) scale(1.02);
   border-color: rgba(80, 86, 70, 0.62);
   box-shadow: 0 18px 30px rgba(73, 69, 58, 0.2);
 }
 
-.work-line-link:hover .work-media img,
-.work-line-link:focus-visible .work-media img {
+.work-image-link:hover .work-media img,
+.work-image-link:focus-visible .work-media img {
   transform: scale(1.12);
   filter: grayscale(0) contrast(1.06);
 }
 
-.work-line-link:focus-visible {
+.work-image-link:focus-visible,
+.work-info-btn:focus-visible {
   outline: 2px solid rgba(80, 86, 70, 0.45);
   outline-offset: 4px;
   border-radius: 10px;
@@ -1155,6 +1192,8 @@ body > * {
 .work-line h3 {
   font-size: clamp(28px, 2.6vw, 42px);
 }
+
+
 
 .work-line p,
 .step-item p {
@@ -1414,6 +1453,10 @@ body > * {
     gap: 12px;
   }
 
+  .work-info-btn::after {
+    display: none;
+  }
+
   .work-reel {
     width: 100%;
   }
@@ -1538,6 +1581,191 @@ body > * {
   }
 }
 
+/* ─── WORK DRAWER ─────────────────────────────────────────── */
+
+body.drawer-open {
+  overflow: hidden;
+}
+
+.work-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 46, 44, 0.26);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.36s ease;
+  z-index: 4000;
+}
+
+.work-drawer-overlay.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.work-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(520px, 100vw);
+  height: 100%;
+  background:
+    radial-gradient(640px 360px at 90% 8%, rgba(255,255,255,0.54), transparent 60%),
+    linear-gradient(170deg, #f8f3e8 0%, #ede3d0 100%);
+  border-left: 1px solid rgba(111, 118, 96, 0.18);
+  box-shadow: -28px 0 64px rgba(43, 46, 44, 0.13);
+  transform: translateX(100%);
+  transition: transform 0.54s cubic-bezier(0.32, 0, 0.12, 1);
+  z-index: 4001;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.work-drawer.is-open {
+  transform: translateX(0);
+}
+
+.work-drawer-close {
+  position: absolute;
+  top: clamp(18px, 3vh, 28px);
+  right: clamp(18px, 2.8vw, 28px);
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid rgba(111, 118, 96, 0.28);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.22s ease, background-color 0.22s ease;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.work-drawer-close:hover {
+  border-color: rgba(80, 86, 70, 0.52);
+  background-color: rgba(111, 118, 96, 0.1);
+}
+
+.work-drawer-close span {
+  position: absolute;
+  width: 14px;
+  height: 1px;
+  background: rgba(43, 46, 44, 0.7);
+}
+
+.work-drawer-close span:first-child {
+  transform: rotate(45deg);
+}
+
+.work-drawer-close span:last-child {
+  transform: rotate(-45deg);
+}
+
+.work-drawer-inner {
+  padding: clamp(64px, 9vh, 88px) clamp(28px, 5vw, 52px) clamp(36px, 6vh, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.8vh, 26px);
+  min-height: 100%;
+}
+
+.work-drawer-tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(80, 86, 70, 0.58);
+}
+
+.work-drawer-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+  color: var(--sage-deep);
+}
+
+.work-drawer-meta {
+  display: flex;
+  gap: 0;
+  align-items: center;
+  padding-bottom: clamp(16px, 2.4vh, 22px);
+  border-bottom: 1px solid rgba(111, 118, 96, 0.18);
+}
+
+.work-drawer-meta span {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(43, 46, 44, 0.52);
+}
+
+.work-drawer-year::after {
+  content: "·";
+  margin: 0 10px;
+  opacity: 0.38;
+}
+
+.work-drawer-detail {
+  font-family: "Syne", sans-serif;
+  font-weight: 500;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.64;
+  color: rgba(43, 46, 44, 0.8);
+  letter-spacing: 0.01em;
+}
+
+.work-drawer-process {
+  padding-top: clamp(10px, 1.6vh, 16px);
+}
+
+.work-drawer-process-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(80, 86, 70, 0.5);
+  margin-bottom: 16px;
+}
+
+.work-drawer-steps {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.work-drawer-steps li {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  align-items: baseline;
+  gap: 10px;
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: rgba(43, 46, 44, 0.76);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(111, 118, 96, 0.12);
+}
+
+.work-drawer-steps li:last-child {
+  border-bottom: none;
+}
+
+.work-drawer-steps li span {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: rgba(80, 86, 70, 0.5);
+}
+
+.work-drawer-cta {
+  margin-top: auto;
+  align-self: flex-start;
+  padding-top: clamp(12px, 2vh, 18px);
+}
+
 @media (hover: hover) and (pointer: fine) {
   body,
   h1,
@@ -1555,6 +1783,10 @@ body > * {
   .section-shell,
   .stage-grid,
   .work-line,
+  .work-image-link,
+  .work-info-btn,
+  .work-drawer,
+  .work-drawer-inner,
   .step-item,
   a,
   button,
