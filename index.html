@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Sage Form</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/monograma-favicon.png" />
+  <link rel="shortcut icon" href="assets/icons/monograma-favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500&family=Syne:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -172,22 +174,25 @@
   <section class="process stage snap-section" id="process">
     <div class="section-shell">
       <div class="stage-grid process-layout">
-        <div class="stage-head">
+        <div class="stage-head process-left">
           <p class="stage-tag">PROCESS / METHOD</p>
           <h2>Un proceso claro para resultados consistentes.</h2>
+          <p class="process-focus" aria-live="polite">
+            Etapa actual: <span class="process-focus-value">Estrategia</span>
+          </p>
         </div>
-        <div class="stage-body process-steps">
-          <div class="step-item">
+        <div class="stage-body process-steps process-right">
+          <div class="step-item process-step is-active" data-phase="Estrategia">
             <span>01</span>
             <h3>Estrategia</h3>
             <p>Definimos objetivos, mensajes y arquitectura para ordenar el recorrido.</p>
           </div>
-          <div class="step-item">
+          <div class="step-item process-step" data-phase="Diseno">
             <span>02</span>
             <h3>Diseno</h3>
             <p>Construimos una direccion visual que traduzca identidad en experiencia.</p>
           </div>
-          <div class="step-item">
+          <div class="step-item process-step" data-phase="Desarrollo">
             <span>03</span>
             <h3>Desarrollo</h3>
             <p>Convertimos el sistema en un sitio veloz, preciso y listo para escalar.</p>
@@ -204,12 +209,41 @@
           <p class="stage-tag">CONTACT / NEXT</p>
           <h2>Tu siguiente web puede empezar hoy.</h2>
         </div>
-        <div class="stage-body">
-          <p>
+        <div class="stage-body contact-right">
+          <p class="contact-lead">
             Si necesitas una presencia digital premium, clara y estrategica,
-            conversemos sobre tu proyecto y tus objetivos.
+            contame que estas construyendo y te devuelvo una propuesta inicial con direccion.
           </p>
-          <a class="contact-mail" href="mailto:tuemail@gmail.com">tuemail@gmail.com</a>
+
+          <div class="contact-links" aria-label="Canales de contacto">
+            <a class="contact-mail" href="mailto:thesageform@gmail.com">thesageform@gmail.com</a>
+            <a class="contact-mail ghost" href="#process">Ver proceso completo</a>
+          </div>
+
+          <form class="contact-form" id="contact-form" aria-label="Formulario breve de proyecto" action="https://formsubmit.co/thesageform@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Nuevo brief desde The Sage Form" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
+
+            <label class="contact-field">
+              <span>Nombre</span>
+              <input type="text" name="name" autocomplete="name" required />
+            </label>
+
+            <label class="contact-field">
+              <span>Email</span>
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+
+            <label class="contact-field contact-field-wide">
+              <span>Que proyecto queres lanzar</span>
+              <textarea name="project" rows="3" required></textarea>
+            </label>
+
+            <button class="btn btn-primary contact-submit" type="submit">Enviar brief</button>
+            <p class="contact-status" id="contact-status" aria-live="polite"></p>
+          </form>
         </div>
       </div>
     </div>
@@ -230,7 +264,7 @@
       </div>
 
       <div class="footer-meta">
-        <a href="mailto:tuemail@gmail.com">tuemail@gmail.com</a>
+        <a href="mailto:thesageform@gmail.com">thesageform@gmail.com</a>
         <p>Montevideo, Uruguay</p>
         <p>© <span id="footer-year">2026</span> The Sage Form</p>
       </div>
@@ -268,7 +302,7 @@
   <div class="cursor-halo" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
 
-  <a class="signature-cta" href="mailto:tuemail@gmail.com" aria-label="Iniciar proyecto con The Sage Form">
+  <a class="signature-cta" href="mailto:thesageform@gmail.com" aria-label="Iniciar proyecto con The Sage Form">
     <span>Start a project</span>
     <small>THE SAGE FORM</small>
   </a>

@@ -109,6 +109,114 @@ const workLinks = document.querySelectorAll('.work-line-link');
 const workReelFrame = document.querySelector('.work-reel-frame');
 const workReelLabel = document.querySelector('.work-reel-label');
 const signatureCta = document.querySelector('.signature-cta');
+const contactForm = document.querySelector('#contact-form');
+const contactStatus = document.querySelector('#contact-status');
+const processSteps = document.querySelectorAll('.process-step');
+const processFocusValue = document.querySelector('.process-focus-value');
+
+let contactStatusTimeoutId = null;
+
+const setContactStatus = (message, tone = null, autoClearMs = 0) => {
+  if (!contactStatus) {
+    return;
+  }
+
+  if (contactStatusTimeoutId) {
+    window.clearTimeout(contactStatusTimeoutId);
+    contactStatusTimeoutId = null;
+  }
+
+  contactStatus.classList.remove('is-success', 'is-error');
+  if (tone) {
+    contactStatus.classList.add(tone);
+  }
+
+  contactStatus.textContent = message;
+
+  if (autoClearMs > 0) {
+    contactStatusTimeoutId = window.setTimeout(() => {
+      contactStatus.textContent = '';
+      contactStatus.classList.remove('is-success', 'is-error');
+      contactStatusTimeoutId = null;
+    }, autoClearMs);
+  }
+};
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const submitButton = contactForm.querySelector('.contact-submit');
+    const formData = new FormData(contactForm);
+    const action = contactForm.getAttribute('action') || 'https://formsubmit.co/thesageform@gmail.com';
+    const endpoint = action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Enviando...';
+    }
+
+    setContactStatus('Enviando...');
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('request-failed');
+      }
+
+      setContactStatus('Brief enviado. Te respondo pronto.', 'is-success', 3800);
+
+      contactForm.reset();
+    } catch (_error) {
+      setContactStatus('No se pudo enviar. Proba de nuevo.', 'is-error', 4200);
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Enviar brief';
+      }
+    }
+  });
+}
+
+if (processSteps.length) {
+  const setActiveProcessStep = (activeStep) => {
+    processSteps.forEach((step) => {
+      step.classList.toggle('is-active', step === activeStep);
+    });
+
+    if (processFocusValue && activeStep?.dataset.phase) {
+      processFocusValue.textContent = activeStep.dataset.phase;
+    }
+  };
+
+  const initialProcessStep = document.querySelector('.process-step.is-active') || processSteps[0];
+  if (initialProcessStep) {
+    setActiveProcessStep(initialProcessStep);
+  }
+
+  const processObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveProcessStep(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.6,
+      rootMargin: '-20% 0px -28% 0px'
+    }
+  );
+
+  processSteps.forEach((step) => processObserver.observe(step));
+}
 
 if (aboutSection && aboutStorySteps.length) {
   const setActiveStoryStep = (activeStep) => {
