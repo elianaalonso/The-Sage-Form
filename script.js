@@ -208,6 +208,26 @@ if (workLinks.length && workReelFrame && workReelLabel) {
 const workDrawer = document.querySelector('.work-drawer');
 const workDrawerOverlay = document.querySelector('.work-drawer-overlay');
 const workDrawerClose = document.querySelector('.work-drawer-close');
+const workDrawerHeroImage = document.querySelector('.work-drawer-hero-image');
+const workDrawerThumbs = document.querySelector('.work-drawer-thumbs');
+
+const createGallery = (baseSeed) => ([
+  {
+    label: 'Home',
+    image: `https://picsum.photos/seed/${baseSeed}-hero/900/620`,
+    alt: 'Vista principal del proyecto'
+  },
+  {
+    label: 'Mobile',
+    image: `https://picsum.photos/seed/${baseSeed}-mobile/560/720`,
+    alt: 'Vista mobile del proyecto'
+  },
+  {
+    label: 'Detail',
+    image: `https://picsum.photos/seed/${baseSeed}-detail/700/520`,
+    alt: 'Detalle visual del proyecto'
+  }
+]);
 
 const projectDetails = {
   'mood-a': {
@@ -216,7 +236,8 @@ const projectDetails = {
     year: '2025',
     type: 'Web design + Desarrollo',
     detail: 'Un entorno de aprendizaje donde cada decision de diseno acelera la decision de compra. Jerarquia clara, ritmo de lectura calibrado y flujo de checkout sin fricciones para que el contenido venda por si mismo.',
-    steps: ['Arquitectura de contenido y UX', 'Identidad visual e interfaz', 'Desarrollo frontend + integracion']
+    steps: ['Arquitectura de contenido y UX', 'Identidad visual e interfaz', 'Desarrollo frontend + integracion'],
+    gallery: createGallery('sageform-a')
   },
   'mood-b': {
     tag: '02 / LANDING PAGE',
@@ -224,7 +245,8 @@ const projectDetails = {
     year: '2025',
     type: 'Web design + Estrategia',
     detail: 'Narrativa visual que traduce los valores de la marca en una experiencia serena y de alta conversion. El diseno guia la atencion sin que el usuario lo perciba: todo fluye hacia la accion.',
-    steps: ['Estrategia de marca y tono visual', 'Direccion visual y composicion', 'Desarrollo + optimizacion de conversion']
+    steps: ['Estrategia de marca y tono visual', 'Direccion visual y composicion', 'Desarrollo + optimizacion de conversion'],
+    gallery: createGallery('sageform-b')
   },
   'mood-c': {
     tag: '03 / PORTFOLIO EDITORIAL',
@@ -232,8 +254,45 @@ const projectDetails = {
     year: '2024',
     type: 'Web design + Curation',
     detail: 'Una experiencia inmersiva donde la obra habla primero. Navegacion editorial, secuencias de imagen controladas y textura visual que acompana sin competir con el arte.',
-    steps: ['Curation y arquitectura editorial', 'Composicion visual y tipografia', 'Desarrollo inmersivo + performance']
+    steps: ['Curation y arquitectura editorial', 'Composicion visual y tipografia', 'Desarrollo inmersivo + performance'],
+    gallery: createGallery('sageform-c')
   }
+};
+
+const setDrawerGalleryImage = (image, alt) => {
+  if (!workDrawerHeroImage) {
+    return;
+  }
+
+  workDrawerHeroImage.src = image;
+  workDrawerHeroImage.alt = alt;
+};
+
+const renderDrawerGallery = (gallery) => {
+  if (!workDrawerThumbs || !workDrawerHeroImage || !gallery?.length) {
+    return;
+  }
+
+  setDrawerGalleryImage(gallery[0].image, gallery[0].alt);
+  workDrawerThumbs.innerHTML = gallery
+    .map((item, index) => `
+      <button class="work-drawer-thumb${index === 0 ? ' is-active' : ''}" type="button" data-image="${item.image}" data-alt="${item.alt}">
+        <span class="work-drawer-thumb-frame">
+          <img src="${item.image}" alt="" loading="lazy" />
+        </span>
+        <span class="work-drawer-thumb-label">${item.label}</span>
+      </button>
+    `)
+    .join('');
+
+  const thumbs = workDrawerThumbs.querySelectorAll('.work-drawer-thumb');
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      thumbs.forEach((item) => item.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+      setDrawerGalleryImage(thumb.dataset.image, thumb.dataset.alt || 'Vista del proyecto');
+    });
+  });
 };
 
 const openDrawer = (reel) => {
@@ -250,6 +309,8 @@ const openDrawer = (reel) => {
   stepsList.innerHTML = data.steps
     .map((s, i) => `<li><span>${String(i + 1).padStart(2, '0')}</span>${s}</li>`)
     .join('');
+
+  renderDrawerGallery(data.gallery);
 
   workDrawerOverlay.classList.add('is-visible');
   workDrawer.classList.add('is-open');

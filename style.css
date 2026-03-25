@@ -1666,11 +1666,11 @@ body.drawer-open {
 }
 
 .work-drawer-inner {
-  padding: clamp(64px, 9vh, 88px) clamp(28px, 5vw, 52px) clamp(36px, 6vh, 56px);
+  padding: clamp(64px, 9vh, 88px) clamp(28px, 5vw, 52px) calc(clamp(36px, 6vh, 62px) + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
   gap: clamp(18px, 2.8vh, 26px);
-  min-height: 100%;
+  min-height: auto;
 }
 
 .work-drawer-tag {
@@ -1687,6 +1687,103 @@ body.drawer-open {
   line-height: 0.94;
   letter-spacing: -0.01em;
   color: var(--sage-deep);
+}
+
+.work-drawer-visuals {
+  display: grid;
+  gap: 14px;
+}
+
+.work-drawer-hero-media {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  aspect-ratio: 16 / 11;
+  border: 1px solid rgba(111, 118, 96, 0.18);
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.52), transparent 38%),
+    linear-gradient(155deg, rgba(245, 238, 224, 0.96), rgba(224, 214, 192, 0.9));
+  box-shadow: 0 18px 40px rgba(73, 69, 58, 0.14);
+}
+
+.work-drawer-hero-media::before {
+  content: "";
+  position: absolute;
+  inset: 14px 14px auto;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(111, 118, 96, 0.16), rgba(111, 118, 96, 0.05));
+  z-index: 1;
+}
+
+.work-drawer-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.94) contrast(1.03);
+}
+
+.work-drawer-thumbs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.work-drawer-thumb {
+  display: grid;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  color: inherit;
+}
+
+.work-drawer-thumb-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  border: 1px solid rgba(111, 118, 96, 0.14);
+  background: linear-gradient(145deg, rgba(245, 239, 228, 0.94), rgba(226, 216, 195, 0.84));
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, opacity 0.28s ease;
+  opacity: 0.68;
+}
+
+.work-drawer-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.02);
+}
+
+.work-drawer-thumb-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(80, 86, 70, 0.54);
+}
+
+.work-drawer-thumb.is-active .work-drawer-thumb-frame,
+.work-drawer-thumb:hover .work-drawer-thumb-frame,
+.work-drawer-thumb:focus-visible .work-drawer-thumb-frame {
+  opacity: 1;
+  transform: translateY(-2px);
+  border-color: rgba(80, 86, 70, 0.34);
+  box-shadow: 0 12px 20px rgba(73, 69, 58, 0.1);
+}
+
+.work-drawer-thumb.is-active .work-drawer-thumb-label,
+.work-drawer-thumb:hover .work-drawer-thumb-label,
+.work-drawer-thumb:focus-visible .work-drawer-thumb-label {
+  color: rgba(80, 86, 70, 0.84);
+}
+
+.work-drawer-thumb:focus-visible {
+  outline: 2px solid rgba(80, 86, 70, 0.34);
+  outline-offset: 4px;
+  border-radius: 14px;
 }
 
 .work-drawer-meta {
@@ -1761,9 +1858,47 @@ body.drawer-open {
 }
 
 .work-drawer-cta {
-  margin-top: auto;
-  align-self: flex-start;
-  padding-top: clamp(12px, 2vh, 18px);
+  margin-top: clamp(18px, 3vh, 30px);
+  align-self: center;
+  margin-bottom: 0;
+  padding-top: 0;
+  font-family: "Syne", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  padding: 14px 30px;
+  min-width: 270px;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.1;
+}
+
+body.drawer-open .signature-cta {
+  opacity: 0 !important;
+  transform: translateY(12px) !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 900px) {
+  .work-drawer {
+    width: 100vw;
+  }
+
+  .work-drawer-inner {
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .work-drawer-cta {
+    min-width: 240px;
+  }
+
+  .work-drawer-thumbs {
+    grid-template-columns: repeat(3, minmax(0, 88px));
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
