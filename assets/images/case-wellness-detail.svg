@@ -1,0 +1,11 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="36" fill="#E2E8D6"/>
+  <rect x="72" y="72" width="1056" height="656" rx="30" fill="#F8FBF3"/>
+  <circle cx="260" cy="266" r="124" fill="#CFD8C2"/>
+  <text x="446" y="248" fill="#47503D" font-family="Georgia, serif" font-size="76">Serene pacing</text>
+  <rect x="448" y="288" width="394" height="14" rx="7" fill="#5B644F" fill-opacity="0.2"/>
+  <rect x="448" y="320" width="344" height="14" rx="7" fill="#5B644F" fill-opacity="0.12"/>
+  <rect x="118" y="464" width="282" height="176" rx="28" fill="#EEF2E7"/>
+  <rect x="430" y="464" width="282" height="176" rx="28" fill="#EEF2E7"/>
+  <rect x="742" y="464" width="282" height="176" rx="28" fill="#EEF2E7"/>
+</svg>

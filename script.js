@@ -113,6 +113,8 @@ const contactForm = document.querySelector('#contact-form');
 const contactStatus = document.querySelector('#contact-status');
 const processSteps = document.querySelectorAll('.process-step');
 const processFocusValue = document.querySelector('.process-focus-value');
+const serviceStrips = document.querySelectorAll('.service-strip');
+const servicesFocusValue = document.querySelector('.services-focus-value');
 
 let contactStatusTimeoutId = null;
 
@@ -153,10 +155,10 @@ if (contactForm) {
 
     if (submitButton) {
       submitButton.disabled = true;
-      submitButton.textContent = 'Enviando...';
+      submitButton.textContent = 'Enviando…';
     }
 
-    setContactStatus('Enviando...');
+    setContactStatus('Enviando…');
 
     try {
       const response = await fetch(endpoint, {
@@ -183,6 +185,39 @@ if (contactForm) {
       }
     }
   });
+}
+
+if (serviceStrips.length) {
+  const setActiveService = (activeService) => {
+    serviceStrips.forEach((service) => {
+      service.classList.toggle('is-active', service === activeService);
+    });
+
+    if (servicesFocusValue && activeService?.dataset.service) {
+      servicesFocusValue.textContent = activeService.dataset.service;
+    }
+  };
+
+  const initialService = document.querySelector('.service-strip.is-active') || serviceStrips[0];
+  if (initialService) {
+    setActiveService(initialService);
+  }
+
+  const servicesObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveService(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.65,
+      rootMargin: '-18% 0px -28% 0px'
+    }
+  );
+
+  serviceStrips.forEach((service) => servicesObserver.observe(service));
 }
 
 if (processSteps.length) {
@@ -278,15 +313,15 @@ if (workLinks.length && workReelFrame && workReelLabel) {
   const workReelImage = workReelFrame.querySelector('.work-reel-image');
 
   const reelImages = {
-    'mood-a': 'https://picsum.photos/seed/sageform-1/700/400',
-    'mood-b': 'https://picsum.photos/seed/sageform-2/700/400',
-    'mood-c': 'https://picsum.photos/seed/sageform-3/700/400'
+    'mood-a': 'assets/images/case-consultora-hero.svg',
+    'mood-b': 'assets/images/case-wellness-hero.svg',
+    'mood-c': 'assets/images/case-portfolio-hero.svg'
   };
 
   const setReelState = (tone, label) => {
     workReelFrame.classList.remove('mood-a', 'mood-b', 'mood-c');
     workReelFrame.classList.add(tone || 'mood-a');
-    workReelLabel.textContent = label || 'Hover on a project';
+    workReelLabel.textContent = label || 'Explorá una dirección';
     if (workReelImage && reelImages[tone]) {
       workReelImage.src = reelImages[tone];
     }
@@ -302,11 +337,11 @@ if (workLinks.length && workReelFrame && workReelLabel) {
     });
 
     link.addEventListener('mouseleave', () => {
-      setReelState('mood-a', 'Hover on a project');
+      setReelState('mood-a', 'Explorá una dirección');
     });
 
     link.addEventListener('blur', () => {
-      setReelState('mood-a', 'Hover on a project');
+      setReelState('mood-a', 'Explorá una dirección');
     });
   });
 }
@@ -322,48 +357,48 @@ const workDrawerThumbs = document.querySelector('.work-drawer-thumbs');
 const createGallery = (baseSeed) => ([
   {
     label: 'Home',
-    image: `https://picsum.photos/seed/${baseSeed}-hero/900/620`,
+    image: `assets/images/${baseSeed}-hero.svg`,
     alt: 'Vista principal del proyecto'
   },
   {
     label: 'Mobile',
-    image: `https://picsum.photos/seed/${baseSeed}-mobile/560/720`,
+    image: `assets/images/${baseSeed}-mobile.svg`,
     alt: 'Vista mobile del proyecto'
   },
   {
     label: 'Detail',
-    image: `https://picsum.photos/seed/${baseSeed}-detail/700/520`,
+    image: `assets/images/${baseSeed}-detail.svg`,
     alt: 'Detalle visual del proyecto'
   }
 ]);
 
 const projectDetails = {
   'mood-a': {
-    tag: '01 / E-COMMERCE EDUCATIVO',
-    title: 'Plataforma de cursos online',
+    tag: '01 / CONSULTORA BOUTIQUE',
+    title: 'Sitio editorial para consultora boutique',
     year: '2025',
     type: 'Web design + Desarrollo',
-    detail: 'Un entorno de aprendizaje donde cada decision de diseno acelera la decision de compra. Jerarquia clara, ritmo de lectura calibrado y flujo de checkout sin fricciones para que el contenido venda por si mismo.',
-    steps: ['Arquitectura de contenido y UX', 'Identidad visual e interfaz', 'Desarrollo frontend + integracion'],
-    gallery: createGallery('sageform-a')
+    detail: 'Dirección visual sobria, estructura editorial y bloques de contenido pensados para vender criterio, servicio y confianza antes de la primera llamada.',
+    steps: ['Arquitectura de contenido y narrativa', 'Diseño UI con jerarquía editorial', 'Desarrollo frontend y ajuste fino de interacción'],
+    gallery: createGallery('case-consultora')
   },
   'mood-b': {
-    tag: '02 / LANDING PAGE',
-    title: 'Landing para marca de bienestar',
+    tag: '02 / WELLNESS LANDING',
+    title: 'Landing para estudio de bienestar',
     year: '2025',
     type: 'Web design + Estrategia',
-    detail: 'Narrativa visual que traduce los valores de la marca en una experiencia serena y de alta conversion. El diseno guia la atencion sin que el usuario lo perciba: todo fluye hacia la accion.',
-    steps: ['Estrategia de marca y tono visual', 'Direccion visual y composicion', 'Desarrollo + optimizacion de conversion'],
-    gallery: createGallery('sageform-b')
+    detail: 'Una landing diseñada para sostener una lectura más contemplativa, con transiciones suaves, respiración visual y un recorrido que acompaña la decisión sin apurarla.',
+    steps: ['Tono visual y dirección de marca', 'Composición, ritmo y capas de contenido', 'Desarrollo y optimización de conversión'],
+    gallery: createGallery('case-wellness')
   },
   'mood-c': {
-    tag: '03 / PORTFOLIO EDITORIAL',
-    title: 'Portfolio para artista visual',
+    tag: '03 / PORTFOLIO NARRATIVO',
+    title: 'Portfolio narrativo para marca personal',
     year: '2024',
     type: 'Web design + Curation',
-    detail: 'Una experiencia inmersiva donde la obra habla primero. Navegacion editorial, secuencias de imagen controladas y textura visual que acompana sin competir con el arte.',
-    steps: ['Curation y arquitectura editorial', 'Composicion visual y tipografia', 'Desarrollo inmersivo + performance'],
-    gallery: createGallery('sageform-c')
+    detail: 'Una estructura más expresiva, con ritmo editorial y foco en voz propia. La interfaz acompaña el relato y deja que el contenido tenga presencia.',
+    steps: ['Curaduría y secuencia de contenido', 'Tipografía, imagen y ritmo visual', 'Desarrollo inmersivo con foco en performance'],
+    gallery: createGallery('case-portfolio')
   }
 };
 
