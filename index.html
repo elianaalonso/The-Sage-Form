@@ -44,20 +44,21 @@
     <div class="page-progress-fill"></div>
   </div>
 
-  <section class="hero">
-    <div class="top-rail">
-      <div class="top-meta">
-        <div class="live-time" aria-live="polite">--:--</div>
-        <div class="system-tag">system / sage.form</div>
-      </div>
-      <nav class="top-nav" aria-label="Secciones principales">
-          <a href="#about">Estudio</a>
-          <a href="#services">Servicios</a>
-          <a href="#work">Work</a>
-          <a href="#process">Proceso</a>
-          <a href="#contact">Contacto</a>
-      </nav>
+  <div class="top-rail">
+    <div class="top-meta">
+      <div class="live-time" aria-live="polite">--:--</div>
+      <div class="system-tag">system / sage.form</div>
     </div>
+    <nav class="top-nav" aria-label="Secciones principales">
+        <a href="#about">Estudio</a>
+        <a href="#services">Servicios</a>
+        <a href="#work">Work</a>
+        <a href="#process">Proceso</a>
+        <a href="#contact">Contacto</a>
+    </nav>
+  </div>
+
+  <section class="hero">
     <div class="brand-lockup">
       <p class="brand-top"><span class="logo-word logo-word-the">The</span></p>
       <h1>
@@ -74,21 +75,6 @@
     <div class="hero-cta">
       <a class="btn btn-primary" href="#services">Ver servicios</a>
       <a class="btn btn-secondary" href="mailto:thesageform@gmail.com">Hablemos</a>
-    </div>
-
-    <div class="hero-proof" aria-label="Señales de valor del estudio">
-      <div>
-        <strong>Dirección</strong>
-        <span>Estrategia, contenido y diseño en un mismo sistema.</span>
-      </div>
-      <div>
-        <strong>Precisión</strong>
-        <span>Experiencias claras, rápidas y pensadas para conversión.</span>
-      </div>
-      <div>
-        <strong>Acompañamiento</strong>
-        <span>Trabajo directo, criterio curado y menos ruido en cada decisión.</span>
-      </div>
     </div>
 
     <a class="scroll-cue" href="#about" aria-label="Ir a about">
@@ -148,73 +134,41 @@
 
   <section class="services stage snap-section" id="services">
     <div class="section-shell">
-      <div class="stage-grid services-layout">
-        <div class="stage-head services-left">
-          <p class="stage-tag">SERVICES / SCOPE</p>
-          <h2>Servicios pensados para dar forma a una presencia digital clara y premium.</h2>
-          <p class="services-focus" aria-live="polite">
-            En foco: <span class="services-focus-value">Dirección estratégica</span>
-          </p>
-        </div>
-        <div class="stage-body services-right" aria-label="Servicios del estudio">
-          <article class="service-strip is-active" data-service="Dirección estratégica">
-            <span>01</span>
-            <div>
-              <h3>Dirección estratégica</h3>
-              <p>Ordenamos objetivos, propuesta de valor, arquitectura y narrativa para que la web no solo se vea bien: también se entienda y funcione.</p>
-            </div>
-          </article>
-          <article class="service-strip" data-service="Diseño visual">
-            <span>02</span>
-            <div>
-              <h3>Diseño visual</h3>
-              <p>Construimos una identidad digital con ritmo, jerarquía y una atmósfera coherente con la marca. Editorial cuando hace falta, sobria cuando conviene.</p>
-            </div>
-          </article>
-          <article class="service-strip" data-service="Desarrollo a medida">
-            <span>03</span>
-            <div>
-              <h3>Desarrollo a medida</h3>
-              <p>Llevamos el sistema a código con foco en performance, responsividad y detalles de interacción que elevan la percepción sin distraer.</p>
-            </div>
-          </article>
-          <div class="services-note">
-            <p>Ideal para estudios, consultoras, marcas personales y negocios que necesitan una web con criterio, no una plantilla más.</p>
-            <p>Entregables habituales: dirección, copy framework, diseño UI, desarrollo frontend y soporte de lanzamiento.</p>
-          </div>
-        </div>
+      <div class="services-header">
+        <p class="stage-tag">SERVICES / SCOPE</p>
+        <h2>Lo que hacemos.</h2>
       </div>
-    </div>
-  </section>
-
-  <section class="proof stage snap-section" id="proof">
-    <div class="section-shell">
-      <div class="stage-grid proof-layout">
-        <div class="stage-head proof-left">
-          <p class="stage-tag">PROOF / SIGNALS</p>
-          <h2>Una web premium necesita señales claras de confianza.</h2>
-          <p class="proof-intro">Sin inventar métricas ni testimonios: mostramos método, criterio y el tipo de resultado que cada proyecto busca construir.</p>
-        </div>
-        <div class="stage-body proof-right">
-          <div class="proof-metrics" aria-label="Señales de confianza">
-            <article class="proof-metric">
-              <strong>Claridad primero</strong>
-              <p>Mensaje, estructura y CTA alineados para que el sitio se entienda rápido.</p>
-            </article>
-            <article class="proof-metric">
-              <strong>Sistema antes que adorno</strong>
-              <p>Diseño con jerarquía, consistencia y margen real para crecer sin rehacer todo.</p>
-            </article>
-            <article class="proof-metric">
-              <strong>Presencia con intención</strong>
-              <p>Cada interacción suma percepción de marca sin caer en efectos invasivos.</p>
-            </article>
-          </div>
-          <blockquote class="proof-quote">
-            <p>Una buena web no solo representa una marca. La ordena, la sostiene y le da una forma digital que se puede sentir en segundos.</p>
-            <cite>The Sage Form / Studio note</cite>
-          </blockquote>
-        </div>
+      <div class="services-grid" aria-label="Servicios del estudio">
+        <article class="service-card">
+          <p class="service-num">01</p>
+          <h3>Dirección<br/>estratégica</h3>
+          <p>Ordenamos objetivos, propuesta de valor, arquitectura y narrativa para que la web no solo se vea bien: también se entienda y funcione.</p>
+          <ul>
+            <li>Estrategia de contenido</li>
+            <li>Arquitectura de información</li>
+            <li>Copy framework</li>
+          </ul>
+        </article>
+        <article class="service-card">
+          <p class="service-num">02</p>
+          <h3>Diseño<br/>visual</h3>
+          <p>Construimos una identidad digital con ritmo, jerarquía y atmósfera coherente con la marca. Editorial cuando hace falta, sobria cuando conviene.</p>
+          <ul>
+            <li>Diseño UI / sistemas visuales</li>
+            <li>Identidad para web</li>
+            <li>Prototipado interactivo</li>
+          </ul>
+        </article>
+        <article class="service-card">
+          <p class="service-num">03</p>
+          <h3>Desarrollo<br/>a medida</h3>
+          <p>Llevamos el sistema a código con foco en performance, responsividad y detalles de interacción que elevan la percepción sin distraer.</p>
+          <ul>
+            <li>Desarrollo frontend</li>
+            <li>Optimización de performance</li>
+            <li>Soporte de lanzamiento</li>
+          </ul>
+        </article>
       </div>
     </div>
   </section>
