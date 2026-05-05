@@ -368,7 +368,7 @@ if (workLinks.length && workReelFrame && workReelLabel) {
 
   const reelImages = {
     'mood-a': 'assets/images/case-consultora-hero.svg',
-    'mood-b': 'assets/images/case-wellness-hero.svg',
+    'mood-b': 'assets/images/case-dharma/dharma-desktop-hero.png',
     'mood-c': 'assets/images/case-portfolio-hero.svg'
   };
 
@@ -437,13 +437,44 @@ const projectDetails = {
     gallery: createGallery('case-consultora')
   },
   'mood-b': {
-    tag: '02 / WELLNESS LANDING',
-    title: 'Landing para estudio de bienestar',
-    year: '2025',
-    type: 'Web design + Estrategia',
-    detail: 'Una landing diseñada para sostener una lectura más contemplativa, con transiciones suaves, respiración visual y un recorrido que acompaña la decisión sin apurarla.',
-    steps: ['Tono visual y dirección de marca', 'Composición, ritmo y capas de contenido', 'Desarrollo y optimización de conversión'],
-    gallery: createGallery('case-wellness')
+    tag: '02 / DHARMA YOGA INTEGRAL',
+    title: 'Sitio institucional para estudio de yoga',
+    year: '2026',
+    type: 'Web design + Desarrollo',
+    detail: 'Caso real para un estudio en Buceo: dirección visual cálida, jerarquía clara para clases y un recorrido pensado para convertir visitas en reservas.',
+    steps: ['Arquitectura de secciones y propuesta de valor', 'Diseño UI inmersivo con foco en confianza', 'Implementación responsive y optimización de lectura'],
+    gallery: [
+      {
+        label: 'Hero',
+        image: 'assets/images/case-dharma/dharma-desktop-hero.png',
+        alt: 'Hero principal del sitio Dharma Yoga Integral'
+      },
+      {
+        label: 'Nosotros',
+        image: 'assets/images/case-dharma/dharma-desktop-nosotros.png',
+        alt: 'Sección nosotros del sitio Dharma Yoga Integral'
+      },
+      {
+        label: 'Clases',
+        image: 'assets/images/case-dharma/dharma-desktop-clases.png',
+        alt: 'Sección clases del sitio Dharma Yoga Integral'
+      },
+      {
+        label: 'Contacto',
+        image: 'assets/images/case-dharma/dharma-desktop-contacto.png',
+        alt: 'Sección contacto del sitio Dharma Yoga Integral'
+      },
+      {
+        label: 'Mobile H',
+        image: 'assets/images/case-dharma/dharma-mobile-hero.png',
+        alt: 'Vista mobile hero del sitio Dharma Yoga Integral'
+      },
+      {
+        label: 'Mobile C',
+        image: 'assets/images/case-dharma/dharma-mobile-clases.png',
+        alt: 'Vista mobile clases del sitio Dharma Yoga Integral'
+      }
+    ]
   },
   'mood-c': {
     tag: '03 / PORTFOLIO NARRATIVO',
