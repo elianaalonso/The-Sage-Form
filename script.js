@@ -1,3 +1,73 @@
+// ── Loader ──
+(function () {
+  const screen = document.getElementById('loaderScreen');
+  const fill   = document.getElementById('loaderFill');
+  const percent = document.getElementById('loaderPercent');
+  const wipe   = document.getElementById('loaderWipe');
+  if (!screen || !fill || !wipe) return;
+
+  document.body.style.overflow = 'hidden';
+  fill.style.width = '0%';
+  if (percent) {
+    percent.textContent = '0%';
+  }
+
+  let current    = 0;
+  let target     = 0;
+  let pageLoaded = false;
+
+  // Fases de progreso simulado
+  const phases = [
+    { delay: 280,  val: 8 },
+    { delay: 520,  val: 18 },
+    { delay: 780,  val: 34 },
+    { delay: 1080, val: 52 },
+    { delay: 1380, val: 68 },
+    { delay: 1720, val: 82 },
+    { delay: 2100, val: 90 },
+  ];
+  phases.forEach(({ delay, val }) => {
+    setTimeout(() => { if (!pageLoaded) target = val; }, delay);
+  });
+
+  // Animación suave con easing exponencial
+  function tick() {
+    if (Math.abs(target - current) > 0.15) {
+      current += (target - current) * 0.055;
+      fill.style.width = current.toFixed(2) + '%';
+      if (percent) {
+        percent.textContent = `${Math.max(0, Math.min(100, Math.round(current)))}%`;
+      }
+    }
+    if (!pageLoaded || current < 99.5) {
+      requestAnimationFrame(tick);
+    } else {
+      fill.style.width = '100%';
+      if (percent) {
+        percent.textContent = '100%';
+      }
+      setTimeout(() => wipe.classList.add('reveal'), 200);
+      setTimeout(() => {
+        screen.remove();
+        document.body.style.overflow = '';
+      }, 1100);
+    }
+  }
+  requestAnimationFrame(tick);
+
+  const minDisplay = 2200;
+  const startTime  = Date.now();
+
+  window.addEventListener('load', () => {
+    const elapsed = Date.now() - startTime;
+    const wait    = Math.max(0, minDisplay - elapsed);
+    setTimeout(() => {
+      pageLoaded = true;
+      target = 100;
+    }, wait);
+  });
+})();
+
 const liveTime = document.querySelector('.live-time');
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorHalo = document.querySelector('.cursor-halo');
@@ -29,27 +99,14 @@ if (finePointer && cursorDot && cursorHalo) {
   const cursorState = {
     targetX: window.innerWidth * 0.5,
     targetY: window.innerHeight * 0.5,
-    haloX: window.innerWidth * 0.5,
-    haloY: window.innerHeight * 0.5,
     rafId: null
   };
 
   const renderCursor = () => {
-    cursorDot.style.transform = `translate3d(${cursorState.targetX}px, ${cursorState.targetY}px, 0)`;
-
-    cursorState.haloX += (cursorState.targetX - cursorState.haloX) * 0.22;
-    cursorState.haloY += (cursorState.targetY - cursorState.haloY) * 0.22;
-    cursorHalo.style.transform = `translate3d(${cursorState.haloX}px, ${cursorState.haloY}px, 0)`;
-
-    const stillMoving =
-      Math.abs(cursorState.targetX - cursorState.haloX) > 0.2 ||
-      Math.abs(cursorState.targetY - cursorState.haloY) > 0.2;
-
-    if (stillMoving) {
-      cursorState.rafId = window.requestAnimationFrame(renderCursor);
-    } else {
-      cursorState.rafId = null;
-    }
+    const transform = `translate3d(${cursorState.targetX}px, ${cursorState.targetY}px, 0)`;
+    cursorDot.style.transform = transform;
+    cursorHalo.style.transform = transform;
+    cursorState.rafId = null;
   };
 
   const queueCursorRender = () => {
@@ -69,18 +126,7 @@ if (finePointer && cursorDot && cursorHalo) {
   window.addEventListener('mouseout', (event) => {
     if (!event.relatedTarget) {
       document.body.classList.remove('cursor-ready');
-      document.body.classList.remove('cursor-hover');
     }
-  });
-
-  const interactiveElements = document.querySelectorAll('a, button, .btn, .top-nav a, .scroll-cue');
-  interactiveElements.forEach((element) => {
-    element.addEventListener('mouseenter', () => {
-      document.body.classList.add('cursor-hover');
-    });
-    element.addEventListener('mouseleave', () => {
-      document.body.classList.remove('cursor-hover');
-    });
   });
 }
 
@@ -292,6 +338,7 @@ if (aboutSection && aboutStorySteps.length) {
 }
 
 if (snapSections.length) {
+  let parallaxRaf = null;
   const updateSectionParallax = () => {
     const viewportCenter = window.innerHeight * 0.5;
 
@@ -302,11 +349,18 @@ if (snapSections.length) {
       const drift = Math.max(-18, Math.min(18, normalized * -20));
       section.style.setProperty('--drift', drift.toFixed(2));
     });
+    parallaxRaf = null;
+  };
+
+  const queueParallax = () => {
+    if (parallaxRaf === null) {
+      parallaxRaf = requestAnimationFrame(updateSectionParallax);
+    }
   };
 
   updateSectionParallax();
-  window.addEventListener('scroll', updateSectionParallax, { passive: true });
-  window.addEventListener('resize', updateSectionParallax);
+  window.addEventListener('scroll', queueParallax, { passive: true });
+  window.addEventListener('resize', queueParallax);
 }
 
 if (workLinks.length && workReelFrame && workReelLabel) {
@@ -491,6 +545,7 @@ if (workDrawer && workDrawerOverlay) {
 }
 
 if (signatureCta) {
+  let ctaRaf = null;
   const toggleSignatureCta = () => {
     const revealAfter = window.innerHeight * 0.35;
     if (window.scrollY > revealAfter) {
@@ -498,11 +553,18 @@ if (signatureCta) {
     } else {
       signatureCta.classList.remove('is-visible');
     }
+    ctaRaf = null;
+  };
+
+  const queueCtaToggle = () => {
+    if (ctaRaf === null) {
+      ctaRaf = requestAnimationFrame(toggleSignatureCta);
+    }
   };
 
   toggleSignatureCta();
-  window.addEventListener('scroll', toggleSignatureCta, { passive: true });
-  window.addEventListener('resize', toggleSignatureCta);
+  window.addEventListener('scroll', queueCtaToggle, { passive: true });
+  window.addEventListener('resize', queueCtaToggle);
 }
 
 if (snapSections.length) {
@@ -587,7 +649,8 @@ if (hero) {
     cueX: 0,
     cueY: 0,
     rafId: null,
-    active: false
+    active: false,
+    nearScroll: false
   };
 
   const updateGlowGeometry = () => {
@@ -611,16 +674,20 @@ if (hero) {
     const dx = (x - 50) / 50;
     const dy = (y - 50) / 50;
 
-    hero.style.setProperty('--mx', `${x}%`);
-    hero.style.setProperty('--my', `${y}%`);
+    // Keep motion responsive while avoiding expensive full-surface repaint variables.
     hero.style.setProperty('--px', `${(dx * 14).toFixed(2)}px`);
     hero.style.setProperty('--py', `${(dy * 10).toFixed(2)}px`);
-    hero.style.setProperty('--pyn', `${dy.toFixed(3)}`);
     hero.style.setProperty('--fb-scale', '1.02');
 
     if (scrollCue) {
       const cueDistance = Math.hypot(glowState.mouseX - glowState.cueX, glowState.mouseY - glowState.cueY);
-      hero.classList.toggle('is-near-scroll', cueDistance < 180);
+      const shouldBeNear = glowState.nearScroll
+        ? cueDistance < 210
+        : cueDistance < 165;
+      if (shouldBeNear !== glowState.nearScroll) {
+        glowState.nearScroll = shouldBeNear;
+        hero.classList.toggle('is-near-scroll', shouldBeNear);
+      }
     }
 
     glowState.rafId = null;
@@ -654,12 +721,10 @@ if (hero) {
 
   hero.addEventListener('mouseleave', () => {
     glowState.active = false;
-    hero.style.setProperty('--mx', '50%');
-    hero.style.setProperty('--my', '40%');
     hero.style.setProperty('--px', '0px');
     hero.style.setProperty('--py', '0px');
-    hero.style.setProperty('--pyn', '0');
     hero.style.setProperty('--fb-scale', '1');
+    glowState.nearScroll = false;
     hero.classList.remove('is-near-scroll');
   });
 }
