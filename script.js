@@ -68,6 +68,40 @@
   });
 })();
 
+// ── Work Case Toggle ──
+(function () {
+  const toggle = document.getElementById('workCaseToggle');
+  const content = document.getElementById('workCaseContent');
+  if (!toggle || !content) return;
+
+  const updateContentHeight = () => {
+    if (toggle.getAttribute('aria-expanded') === 'true') {
+      content.setAttribute('aria-hidden', 'false');
+      content.removeAttribute('hidden');
+    } else {
+      content.setAttribute('aria-hidden', 'true');
+      content.setAttribute('hidden', '');
+    }
+  };
+
+  toggle.addEventListener('click', () => {
+    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isExpanded));
+    updateContentHeight();
+  });
+
+  // Keyboard support
+  toggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle.click();
+    }
+  });
+
+  // Initialize state
+  updateContentHeight();
+})();
+
 const liveTime = document.querySelector('.live-time');
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorHalo = document.querySelector('.cursor-halo');
@@ -155,6 +189,7 @@ const workLinks = document.querySelectorAll('.work-line-link');
 const workReelFrame = document.querySelector('.work-reel-frame');
 const workReelLabel = document.querySelector('.work-reel-label');
 const signatureCta = document.querySelector('.signature-cta');
+const copyEmailButton = document.querySelector('.contact-copy-inline');
 const contactForm = document.querySelector('#contact-form');
 const contactStatus = document.querySelector('#contact-status');
 const processSteps = document.querySelectorAll('.process-step');
@@ -190,6 +225,37 @@ const setContactStatus = (message, tone = null, autoClearMs = 0) => {
   }
 };
 
+if (copyEmailButton) {
+  copyEmailButton.addEventListener('click', async () => {
+    const email = copyEmailButton.dataset.copyEmail || 'thesageform@gmail.com';
+
+    const fallbackCopy = () => {
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      tempInput.remove();
+    };
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        fallbackCopy();
+      }
+
+      setContactStatus('Email copiado. Podes pegarlo donde quieras.', 'is-success', 2600);
+      copyEmailButton.textContent = 'Email copiado';
+      window.setTimeout(() => {
+        copyEmailButton.textContent = 'Copiar email';
+      }, 1800);
+    } catch (_error) {
+      setContactStatus('No se pudo copiar. Proba manualmente.', 'is-error', 2600);
+    }
+  });
+}
+
 if (contactForm) {
   contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -198,9 +264,12 @@ if (contactForm) {
     const formData = new FormData(contactForm);
     const action = contactForm.getAttribute('action') || 'https://formsubmit.co/thesageform@gmail.com';
     const endpoint = action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+    let sentSuccessfully = false;
 
     if (submitButton) {
       submitButton.disabled = true;
+      submitButton.classList.remove('is-success');
+      submitButton.classList.add('is-sending');
       submitButton.textContent = 'Enviando…';
     }
 
@@ -219,15 +288,33 @@ if (contactForm) {
         throw new Error('request-failed');
       }
 
+      sentSuccessfully = true;
       setContactStatus('Brief enviado. Te respondo pronto.', 'is-success', 3800);
 
       contactForm.reset();
+      contactForm.classList.add('is-sent');
+      window.setTimeout(() => {
+        contactForm.classList.remove('is-sent');
+      }, 680);
     } catch (_error) {
       setContactStatus('No se pudo enviar. Proba de nuevo.', 'is-error', 4200);
     } finally {
       if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = 'Enviar brief';
+        submitButton.classList.remove('is-sending');
+
+        if (sentSuccessfully) {
+          submitButton.classList.add('is-success');
+          submitButton.textContent = 'Enviado';
+
+          window.setTimeout(() => {
+            submitButton.disabled = false;
+            submitButton.classList.remove('is-success');
+            submitButton.textContent = 'Enviar brief';
+          }, 1200);
+        } else {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Enviar brief';
+        }
       }
     }
   });
@@ -445,6 +532,11 @@ const projectDetails = {
     steps: ['Arquitectura de secciones y propuesta de valor', 'Diseño UI inmersivo con foco en confianza', 'Implementación responsive y optimización de lectura'],
     gallery: [
       {
+        label: 'Antes',
+        image: 'assets/images/case-dharma/dharma-before-hero.png',
+        alt: 'Sitio anterior de Dharma Yoga Integral'
+      },
+      {
         label: 'Hero',
         image: 'assets/images/case-dharma/dharma-desktop-hero.png',
         alt: 'Hero principal del sitio Dharma Yoga Integral'
@@ -596,6 +688,25 @@ if (signatureCta) {
   toggleSignatureCta();
   window.addEventListener('scroll', queueCtaToggle, { passive: true });
   window.addEventListener('resize', queueCtaToggle);
+
+  const whatsappRaw = (signatureCta.dataset.whatsapp || '').trim();
+  if (whatsappRaw) {
+    const whatsappNumber = whatsappRaw.replace(/\D/g, '');
+    const whatsappMessage = encodeURIComponent('Hola! Quiero iniciar un proyecto con The Sage Form.');
+    signatureCta.href = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+    signatureCta.target = '_blank';
+    signatureCta.rel = 'noopener noreferrer';
+    signatureCta.removeAttribute('aria-disabled');
+    const label = signatureCta.querySelector('small');
+    if (label) {
+      label.textContent = 'WHATSAPP';
+    }
+  } else {
+    signatureCta.addEventListener('click', (event) => {
+      event.preventDefault();
+      setContactStatus('WhatsApp queda activo apenas compartas el numero.', 'is-success', 2800);
+    });
+  }
 }
 
 if (snapSections.length) {
