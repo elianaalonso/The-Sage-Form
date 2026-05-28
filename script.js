@@ -709,6 +709,64 @@ if (signatureCta) {
   }
 }
 
+const proofNotes = document.querySelectorAll('.proof-note');
+const proofDots = document.querySelectorAll('.proof-note-dot');
+const proofTrack = document.querySelector('.proof-track');
+if (proofNotes.length && proofDots.length && proofTrack) {
+  let proofIndex = 0;
+  let proofInterval = null;
+
+  const updateProofState = (nextIndex) => {
+    proofIndex = nextIndex;
+    proofNotes.forEach((note, noteIndex) => {
+      const isActive = noteIndex === proofIndex;
+      note.classList.toggle('is-active', isActive);
+      note.classList.toggle('is-inactive', !isActive);
+    });
+
+    proofDots.forEach((dot, dotIndex) => {
+      const isSelected = dotIndex === proofIndex;
+      dot.classList.toggle('proof-note-dot-active', isSelected);
+      dot.setAttribute('aria-selected', String(isSelected));
+      dot.tabIndex = isSelected ? 0 : -1;
+    });
+
+    proofTrack.style.transform = `translateX(-${proofIndex * 100}%)`;
+  };
+
+  const rotateProof = () => {
+    updateProofState((proofIndex + 1) % proofNotes.length);
+  };
+
+  const startProofRotation = () => {
+    proofInterval = window.setInterval(rotateProof, 7000);
+  };
+
+  const stopProofRotation = () => {
+    if (proofInterval) {
+      window.clearInterval(proofInterval);
+      proofInterval = null;
+    }
+  };
+
+  proofDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      stopProofRotation();
+      updateProofState(Number(dot.dataset.proofIndex));
+      startProofRotation();
+    });
+  });
+
+  const proofSection = document.querySelector('.proof-notes');
+  if (proofSection) {
+    proofSection.addEventListener('mouseenter', stopProofRotation);
+    proofSection.addEventListener('mouseleave', startProofRotation);
+  }
+
+  updateProofState(0);
+  startProofRotation();
+}
+
 if (snapSections.length) {
   const revealObserver = new IntersectionObserver(
     (entries) => {

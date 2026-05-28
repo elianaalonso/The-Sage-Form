@@ -444,6 +444,160 @@ body > * {
   margin-bottom: clamp(28px, 4vh, 48px);
 }
 
+.proof {
+  background: linear-gradient(180deg, rgba(247, 242, 232, 0.24), rgba(255, 252, 246, 0.7));
+}
+
+.proof.stage {
+  padding: clamp(56px, 6vh, 76px) 0 clamp(52px, 5.8vh, 70px);
+}
+
+.proof-heading-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: clamp(28px, 3.5vw, 44px);
+}
+
+.proof-heading-block h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.02;
+  color: var(--sage-deep);
+}
+
+.proof-intro {
+  max-width: 48ch;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.75;
+  color: rgba(43, 46, 44, 0.74);
+}
+
+.proof-link {
+  align-self: flex-start;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.proof-link:hover,
+.proof-link:focus {
+  color: var(--sage);
+  transform: translateX(2px);
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 24px);
+}
+
+.testimonial-card {
+  padding: clamp(18px, 1.8vw, 26px);
+  border-radius: 28px;
+  background: rgba(255, 250, 241, 0.88);
+  border: 1px solid rgba(111, 118, 96, 0.16);
+  box-shadow: 0 18px 36px rgba(73, 69, 58, 0.07);
+  display: grid;
+  gap: 18px;
+}
+
+.testimonial-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(80, 86, 70, 0.62);
+}
+
+.testimonial-quote {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(18px, 1.9vw, 24px);
+  line-height: 1.18;
+  color: var(--sage-deep);
+  margin: 0;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.testimonial-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(111, 118, 96, 0.1);
+  color: var(--sage-deep);
+  display: grid;
+  place-items: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.testimonial-name {
+  font-weight: 600;
+  color: var(--sage-deep);
+  margin-bottom: 4px;
+}
+
+.testimonial-role {
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(43, 46, 44, 0.68);
+}
+
+.proof-brands {
+  margin-top: clamp(20px, 2.2vw, 28px);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+  color: rgba(80, 86, 70, 0.68);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+}
+
+.proof-brands span {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(111, 118, 96, 0.12);
+  white-space: nowrap;
+}
+
+@media (max-width: 980px) {
+  .proof-heading-block {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .proof-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonial-quote {
+    font-size: clamp(18px, 4.4vw, 24px);
+  }
+
+  .proof-link {
+    align-self: stretch;
+  }
+
+  .proof-brands {
+    gap: 12px;
+  }
+}
+
 .services-header h2 {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(32px, 3.6vw, 54px);
@@ -580,46 +734,73 @@ body > * {
 }
 
 .proof-notes {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(220px, 1fr) minmax(220px, 1fr);
-  gap: 18px;
-  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  background: rgba(255, 251, 244, 0.18);
+  box-shadow: 0 24px 50px rgba(73, 69, 58, 0.08);
+}
+
+.proof-track {
+  display: flex;
+  width: 300%;
+  transition: transform 0.55s ease;
+  will-change: transform;
 }
 
 .proof-note {
+  min-width: 100%;
+  flex: 0 0 100%;
   display: grid;
-  gap: 18px;
-  padding: 22px 22px 24px;
-  border-top: 1px solid rgba(111, 118, 96, 0.24);
-  background: rgba(255, 251, 244, 0.34);
+  gap: 20px;
+  padding: clamp(24px, 3.2vw, 36px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45), 0 22px 40px rgba(73, 69, 58, 0.08);
+  opacity: 0.42;
+  transform: scale(0.96);
+  transition: transform 0.55s ease, opacity 0.55s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.proof-note.is-active {
+  opacity: 1;
+  transform: scale(1);
+  border-color: rgba(111, 118, 96, 0.24);
+  background: rgba(255, 251, 244, 0.88);
+  box-shadow: 0 22px 44px rgba(73, 69, 58, 0.16);
+}
+
+.proof-note:hover {
+  transform: translateY(-3px) scale(1.01);
 }
 
 .proof-note-featured {
-  padding: clamp(26px, 4vw, 40px);
-  border: 1px solid rgba(111, 118, 96, 0.2);
-  border-radius: 26px;
-  background: linear-gradient(145deg, rgba(255, 252, 246, 0.82), rgba(238, 229, 212, 0.58));
-  box-shadow: 0 18px 36px rgba(73, 69, 58, 0.1);
+  padding: clamp(28px, 3.6vw, 40px);
+  border-radius: 32px;
+  background: linear-gradient(145deg, rgba(255, 252, 246, 0.92), rgba(238, 229, 212, 0.64));
+  box-shadow: 0 18px 40px rgba(73, 69, 58, 0.12);
 }
 
 .proof-note-index {
   font-family: "IBM Plex Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 0.24em;
+  font-size: 11px;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(80, 86, 70, 0.58);
+  color: rgba(80, 86, 70, 0.68);
 }
 
 .proof-note blockquote {
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(30px, 2.8vw, 48px);
-  line-height: 0.96;
+  font-size: clamp(34px, 3vw, 50px);
+  line-height: 1.02;
   color: var(--sage-deep);
   margin: 0;
+  max-width: 72ch;
 }
 
 .proof-note:not(.proof-note-featured) blockquote {
-  font-size: clamp(24px, 2vw, 34px);
+  font-size: clamp(28px, 2.4vw, 42px);
 }
 
 .proof-note p {
@@ -629,6 +810,71 @@ body > * {
   text-transform: uppercase;
   color: rgba(80, 86, 70, 0.62);
 }
+
+.proof-note-controls {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.proof-note-dot {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(111, 118, 96, 0.35);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--sage-deep);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.proof-note-dot:hover,
+.proof-note-dot:focus {
+  border-color: rgba(111, 118, 96, 0.72);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.proof-note-dot-active {
+  background: var(--sage);
+  color: #fff;
+  border-color: rgba(111, 118, 96, 0.95);
+  transform: scale(1.08);
+}
+
+
+.proof-notes-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.proof-note-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(111, 118, 96, 0.35);
+  background: transparent;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+  padding: 0;
+}
+
+.proof-note-dot:hover,
+.proof-note-dot:focus {
+  border-color: rgba(111, 118, 96, 0.7);
+}
+
+.proof-note-dot-active {
+  background: rgba(111, 118, 96, 0.78);
+  border-color: rgba(111, 118, 96, 0.9);
+  transform: scale(1.2);
+}
+
 
 .process {
   background: linear-gradient(180deg, rgba(255, 247, 233, 0.28), rgba(239, 230, 212, 0.5));
@@ -2269,11 +2515,17 @@ body > * {
   }
 
   .proof-notes {
-    grid-template-columns: 1fr;
+    display: block;
+  }
+
+  .proof-track {
+    width: 300%;
   }
 
   .proof-note {
     gap: 14px;
+    min-height: auto;
+    padding: 20px 18px;
   }
 
   .proof-note-featured {
